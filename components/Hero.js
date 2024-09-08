@@ -1,21 +1,8 @@
-import Head from "next/head";
 import Link from "next/link";
 
 const Hero = () => {
   return (
     <section className="bg-blue-600 text-white py-40">
-      <Head>
-        <title>
-          Decent Cloud - Decentralized Cloud Platform that You and Your Business
-          Can Trust
-        </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://cdn.tailwindcss.com" async />
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-          rel="stylesheet"
-        />
-      </Head>
       <main>
         <section id="hero" className="bg-blue-600 text-white py-20">
           <div className="container mx-auto px-6 text-center">
