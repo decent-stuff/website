@@ -13,8 +13,8 @@ const Hero = () => {
               Decentralized Cloud Platform that You and Your Business Can Trust
             </h2>
             <p className="text-xl mb-8">
-              Use tech you know and trust <br />
-              On servers with SLA, that you can trust <br />
+              Use tech you already know and trust <br />
+              On servers with SLAs, that you can trust <br />
               From companies with reputation, that you can trust <br />
               And all of that... <br />
               <br />
