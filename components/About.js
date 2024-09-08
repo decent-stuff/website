@@ -3,7 +3,7 @@ const AboutPage = () => {
     <section id="about" className="py-20">
       <div className="container mx-auto px-6">
         <h2 className="text-3xl font-bold text-center mb-8">
-          About Decent Cloud
+          What makes Decent Cloud different?
         </h2>
         <div className="flex flex-wrap -mx-4">
           <div className="w-full md:w-1/2 px-4 mb-8">
