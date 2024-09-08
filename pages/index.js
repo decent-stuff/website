@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Hero from "../components/Hero";
 import About from "../components/About";
+import Whitepaper from "../components/Whitepaper";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
 
@@ -16,6 +17,7 @@ const Home = () => {
       </Head>
       <Hero />
       <About />
+      <Whitepaper />
       <Features />
       <Footer />
     </div>
