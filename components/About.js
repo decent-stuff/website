@@ -1,6 +1,3 @@
-import Head from "next/head";
-import Link from "next/link";
-
 const AboutPage = () => {
   return (
     <section id="about" className="py-20">
@@ -13,7 +10,7 @@ const AboutPage = () => {
             <h3 className="text-xl font-semibold mb-4">Our Vision</h3>
             <p className="text-gray-600">
               Decent Cloud aims to revolutionize cloud computing by creating a
-              decentralized platform that's accessible, secure, and efficient
+              decentralized platform that is accessible, secure, and efficient
               for everyone.
             </p>
           </div>
