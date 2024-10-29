@@ -142,18 +142,18 @@ export function Page() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
-                  title: "Decentralized Infrastructure",
+                  title: "Decentralized Physical Infrastructure (DePIN)",
                   description: "Access tailored virtual or physical servers from reputable node providers.",
                   imageUrl: STATIC_IMAGES.servers
                 },
                 {
                   title: "Reputation-Based System",
-                  description: "Make informed decisions with our transparent provider reputation system.",
+                  description: "Make informed decisions with a transparent provider reputation system. Pick providers based on their SLAs and legal responsibility.",
                   imageUrl: STATIC_IMAGES.reputation
                 },
                 {
                   title: "Confidential Computing",
-                  description: "Process sensitive data securely with our Confidential Computing VMs.",
+                  description: "Process sensitive data securely in Confidential Computing VMs.",
                   imageUrl: STATIC_IMAGES.security
                 }
               ].map((feature, index) => (
@@ -186,18 +186,18 @@ export function Page() {
               <BenefitCard
                 title="For Developers"
                 benefits={[
-                  "Find suitable cloud providers",
-                  "Obtain legal guarantees and SLAs",
-                  "Easy multi-cloud deployments"
+                  "Convenience: Find suitable cloud providers",
+                  "Trust: Obtain legal guarantees and SLAs",
+                  "No vendor lock-in: Easy multi-cloud deployments with consistent APIs"
                 ]}
                 index={0}
               />
               <BenefitCard
                 title="For Node Providers"
                 benefits={[
-                  "Access to trillion-dollar crypto market",
-                  "Reach a global user base",
-                  "Fair, transparent pricing"
+                  "Market: access to the trillion-dollar crypto market",
+                  "Users: Reach a global user base",
+                  "Reasonable pricing: Fair, transparent pricing, without a race-to-the-bottom approach"
                 ]}
                 index={1}
               />
