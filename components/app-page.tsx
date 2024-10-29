@@ -110,8 +110,7 @@ export function Page() {
                 className="bg-white text-purple-800 hover:bg-purple-100 transform hover:scale-105 transition-all"
               >
                 <Link href="https://github.com/orgs/decent-cloud/discussions">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Get Started <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </motion.div>
@@ -231,8 +230,7 @@ export function Page() {
                 className="bg-white text-purple-800 hover:bg-purple-100 transform hover:scale-105 transition-all"
               >
                 <Link href="https://github.com/orgs/decent-cloud/discussions">
-                  Join the Discussion
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Join the Discussion <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </motion.div>
