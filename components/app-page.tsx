@@ -33,10 +33,10 @@ export function Page() {
   const [isScrolled, setIsScrolled] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
-  
+
   // Parallax effect for hero section
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -70,7 +70,7 @@ export function Page() {
 
       <main className="flex-grow pt-16">
         <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
-          <motion.div 
+          <motion.div
             style={{ y: heroY }}
             className="absolute inset-0 -z-10"
           >
@@ -105,12 +105,14 @@ export function Page() {
                   </div>
                 </div>
               </div>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-white text-purple-800 hover:bg-purple-100 transform hover:scale-105 transition-all"
               >
-                Get Started
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <Link href="https://github.com/orgs/decent-cloud/discussions">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </motion.div>
           </div>
@@ -224,8 +226,8 @@ export function Page() {
             >
               <h2 className="text-3xl font-bold mb-6">Ready to get started?</h2>
               <p className="text-xl mb-8">Join the future of decentralized cloud computing today!</p>
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-white text-purple-800 hover:bg-purple-100 transform hover:scale-105 transition-all"
               >
                 <Link href="https://github.com/orgs/decent-cloud/discussions">
@@ -273,8 +275,8 @@ function FeatureCard({ title, description, imageUrl, index }: FeatureCardProps) 
     >
       <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl">
         <div className="relative h-64 w-full overflow-hidden">
-          <Image 
-            src={imageUrl} 
+          <Image
+            src={imageUrl}
             alt={title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
