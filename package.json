@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "download-images": "node scripts/download-images.mjs",
+    "prepare": "npm run download-images"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
@@ -14,6 +16,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.11.10",
     "lucide-react": "^0.454.0",
     "next": "15.0.2",
     "react": "^18",
