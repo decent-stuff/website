@@ -61,8 +61,8 @@ export function Page() {
             <ul className="flex space-x-6">
               <li><Link href="#features" className="text-white/90 hover:text-white transition-colors">Features</Link></li>
               <li><Link href="#benefits" className="text-white/90 hover:text-white transition-colors">Benefits</Link></li>
-              <li><Link href="https://decent-cloud.github.io/website/decent-cloud-whitepaper.pdf" className="text-white/90 hover:text-white transition-colors">Whitepaper</Link></li>
-              <li><Link href="https://github.com/orgs/decent-cloud/discussions" className="text-white/90 hover:text-white transition-colors">Contact</Link></li>
+              <li><Link href="https://decent-stuff.github.io/website/decent-cloud-whitepaper.pdf" className="text-white/90 hover:text-white transition-colors">Whitepaper</Link></li>
+              <li><Link href="https://github.com/orgs/decent-stuff/discussions" className="text-white/90 hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </nav>
         </div>
@@ -109,7 +109,7 @@ export function Page() {
                 size="lg"
                 className="bg-white text-purple-800 hover:bg-purple-100 transform hover:scale-105 transition-all"
               >
-                <Link href="https://github.com/orgs/decent-cloud/discussions">
+                <Link href="https://github.com/orgs/decent-stuff/discussions">
                   Get Started <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -229,7 +229,7 @@ export function Page() {
                 size="lg"
                 className="bg-white text-purple-800 hover:bg-purple-100 transform hover:scale-105 transition-all"
               >
-                <Link href="https://github.com/orgs/decent-cloud/discussions">
+                <Link href="https://github.com/orgs/decent-stuff/discussions">
                   Join the Discussion <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -247,10 +247,10 @@ export function Page() {
             </div>
             <nav>
               <ul className="flex space-x-4">
-                <li><Link href="https://decent-cloud.github.io/website/decent-cloud-whitepaper.pdf" className="hover:text-purple-300 transition-colors">Whitepaper</Link></li>
-                <li><Link href="https://github.com/orgs/decent-cloud/discussions" className="hover:text-purple-300 transition-colors">Contact</Link></li>
-                <li><Link href="https://github.com/orgs/decent-cloud/discussions" className="hover:text-purple-300 transition-colors">Community</Link></li>
-                <li><Link href="https://github.com/orgs/decent-cloud/discussions" className="hover:text-purple-300 transition-colors">Support</Link></li>
+                <li><Link href="https://decent-stuff.github.io/website/decent-cloud-whitepaper.pdf" className="hover:text-purple-300 transition-colors">Whitepaper</Link></li>
+                <li><Link href="https://github.com/orgs/decent-stuff/discussions" className="hover:text-purple-300 transition-colors">Contact</Link></li>
+                <li><Link href="https://github.com/orgs/decent-stuff/discussions" className="hover:text-purple-300 transition-colors">Community</Link></li>
+                <li><Link href="https://github.com/orgs/decent-stuff/discussions" className="hover:text-purple-300 transition-colors">Support</Link></li>
               </ul>
             </nav>
           </div>
