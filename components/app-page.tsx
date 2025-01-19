@@ -71,6 +71,7 @@ const infoSections = [
     3. Get rewarded with block rewards<br/><br/>
     <strong>Quick facts:</strong><br/>
     • 50 DCT initial block reward<br/>
+    • Unclaimed rewards are carried over to the next block<br/>
     • New block every 10 minutes<br/>
     • Reward halves every 210,000 blocks<br/>
     • Total supply: ~21M DCT`
@@ -79,7 +80,7 @@ const infoSections = [
     title: "Show me the money! (Tokenomics)",
     icon: "💰",
     content: `Our Decentralized Cloud Token (DCT) powers the whole ecosystem:<br/><br/>
-    • <strong>Minting:</strong> New tokens every 10 mins, halving every 210k blocks<br/>
+    • <strong>Minting:</strong> New block every 10 mins, block rewards halving every 210k blocks<br/>
     • <strong>Distribution:</strong> Rewards for active participants<br/>
     • <strong>Entry:</strong> Small registration fee (0.5 DCT) for reward eligibility<br/>
     • <strong>Governance:</strong> DAO-controlled for community-driven decisions<br/>
@@ -110,7 +111,20 @@ const features = [
   }
 ];
 
-export function Page() {
+interface DashboardData {
+  dctPrice: number;
+  providerCount: number;
+  totalBlocks: number;
+  blocksUntilHalving: number;
+  validatorCount: number;
+  blockReward: number;
+}
+
+interface PageProps {
+  dashboardData: DashboardData | null;
+}
+
+export function Page({ dashboardData }: PageProps) {
   const [activeFeature, setActiveFeature] = useState(0);
 
   useEffect(() => {
@@ -174,73 +188,75 @@ export function Page() {
           </motion.div>
         </section>
 
-        <section className="py-10">
-          <motion.div 
-            className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5 }}
-          >
-            <table className="w-full text-sm">
-              <tbody>
-                <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                  <td className="p-2 pl-4">
-                    <span className="font-semibold">Latest DCT Price 💎</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                      Our token is like a digital diamond - rare, valuable, and totally decent!
-                    </span>
-                  </td>
-                  <td className="p-2 pr-4 text-right">$1.1111</td>
-                </tr>
-                <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                  <td className="p-2 pl-4">
-                    <span className="font-semibold">Provider Squad 🤝</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    Our awesome providers making the cloud decent again!
-                    </span>
-                  </td>
-                  <td className="p-2 pr-4 text-right">3 providers</td>
-                </tr>
-                <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                  <td className="p-2 pl-4">
-                    <span className="font-semibold">Block Party 🎉</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    234,424 blocks validated and counting!
-                    </span>
-                  </td>
-                  <td className="p-2 pr-4 text-right">234,424</td>
-                </tr>
-                <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                  <td className="p-2 pl-4">
-                    <span className="font-semibold">Blocks Until Next Halving ⏳</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    150,000 blocks until rewards halve!
-                    </span>
-                  </td>
-                  <td className="p-2 pr-4 text-right">150,000</td>
-                </tr>
-                <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                  <td className="p-2 pl-4">
-                    <span className="font-semibold">Current Block Validators 🛡️</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    150 validators keeping us decent!
-                    </span>
-                  </td>
-                  <td className="p-2 pr-4 text-right">150</td>
-                </tr>
-                <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                  <td className="p-2 pl-4">
-                    <span className="font-semibold">Current Blocks Rewards 🎁</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    50 DCT per validated block! With carry-over!
-                    </span>
-                  </td>
-                  <td className="p-2 pr-4 text-right">50 DCT</td>
-                </tr>
-              </tbody>
-            </table>
-          </motion.div>
-        </section>
+        {dashboardData && (
+          <section className="py-10">
+            <motion.div 
+              className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
+              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5 }}
+            >
+              <table className="w-full text-sm">
+                <tbody>
+                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                    <td className="p-2 pl-4">
+                      <span className="font-semibold">Latest DCT Price 💎</span>
+                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                        Our token is like a digital diamond - rare, valuable, and totally decent!
+                      </span>
+                    </td>
+                    <td className="p-2 pr-4 text-right">${dashboardData.dctPrice.toFixed(4)}</td>
+                  </tr>
+                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                    <td className="p-2 pl-4">
+                      <span className="font-semibold">Provider Squad 🤝</span>
+                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                        Our awesome providers making the cloud decent again!
+                      </span>
+                    </td>
+                    <td className="p-2 pr-4 text-right">{dashboardData.providerCount} providers</td>
+                  </tr>
+                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                    <td className="p-2 pl-4">
+                      <span className="font-semibold">Block Party 🎉</span>
+                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                        {dashboardData.totalBlocks.toLocaleString()} blocks validated and counting!
+                      </span>
+                    </td>
+                    <td className="p-2 pr-4 text-right">{dashboardData.totalBlocks.toLocaleString()}</td>
+                  </tr>
+                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                    <td className="p-2 pl-4">
+                      <span className="font-semibold">Blocks Until Next Halving ⏳</span>
+                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                        {dashboardData.blocksUntilHalving.toLocaleString()} blocks until rewards halve!
+                      </span>
+                    </td>
+                    <td className="p-2 pr-4 text-right">{dashboardData.blocksUntilHalving.toLocaleString()}</td>
+                  </tr>
+                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                    <td className="p-2 pl-4">
+                      <span className="font-semibold">Current Block Validators 🛡️</span>
+                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                        {dashboardData.validatorCount} validators keeping us decent!
+                      </span>
+                    </td>
+                    <td className="p-2 pr-4 text-right">{dashboardData.validatorCount}</td>
+                  </tr>
+                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                    <td className="p-2 pl-4">
+                      <span className="font-semibold">Current Block Rewards 🎁</span>
+                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                        {dashboardData.blockReward} DCT per validated block! With carry-over if unclaimed!
+                      </span>
+                    </td>
+                    <td className="p-2 pr-4 text-right">{dashboardData.blockReward.toFixed(2)} DCT</td>
+                  </tr>
+                </tbody>
+              </table>
+            </motion.div>
+          </section>
+        )}
 
         <section id="features" className="py-20">
           <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
