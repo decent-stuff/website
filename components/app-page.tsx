@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
+import { AuthButtons } from "@/components/auth-buttons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 interface InfoSectionProps {
   title: string;
@@ -103,7 +106,7 @@ const features = [
   {
     icon: "🤝",
     title: "No Vendor Lock-in",
-    description: "Easy multi-cloud deployments with consistent APIs. You're not just a customer, you're a free spirit!"
+    description: "Easy multi-cloud deployments with consistent APIs and liberal Open Source license. Decent Cloud is going nowhere, you're safe with us. You're not just a customer, you're a free spirit!"
   }
 ];
 
@@ -122,12 +125,20 @@ export function Page() {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white">
       <header className="p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">Decent Cloud</h1>
-        <nav className="space-x-4">
-          <Link href="#features" className="hover:underline">Features</Link>
-          <Link href="#info" className="hover:underline">Learn More</Link>
-          <Link href="#benefits" className="hover:underline">Benefits</Link>
-          <Link href="https://github.com/decent-stuff/decent-cloud" className="hover:underline" target="_blank" rel="noopener noreferrer">GitHub</Link>
-        </nav>
+        <div className="flex items-center gap-8">
+          <nav className="space-x-4">
+            <Link href="#features" className="hover:underline">Features</Link>
+            <Link href="#info" className="hover:underline">Learn More</Link>
+            <Link href="#benefits" className="hover:underline">Benefits</Link>
+            <Link
+              href="https://github.com/decent-stuff/decent-cloud"
+              className="gap-2 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            ><FontAwesomeIcon icon={faGithub} /> GitHub</Link>
+          </nav>
+          <AuthButtons />
+        </div>
       </header>
 
       <main className="container mx-auto px-4">
@@ -155,7 +166,7 @@ export function Page() {
           >
             <Button className="bg-white text-purple-900 px-6 py-3 rounded-full font-bold hover:bg-purple-100 transition duration-300">
               <Link href="https://github.com/orgs/decent-stuff/discussions">
-                Get Started
+                Join the development
               </Link>
             </Button>
           </motion.div>
