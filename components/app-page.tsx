@@ -127,6 +127,7 @@ export function Page() {
         <h1 className="text-2xl font-bold">Decent Cloud</h1>
         <div className="flex items-center gap-8">
           <nav className="space-x-4">
+            <Link href="#information" className="hover:underline">Information</Link>
             <Link href="#features" className="hover:underline">Features</Link>
             <Link href="#info" className="hover:underline">Learn More</Link>
             <Link href="#benefits" className="hover:underline">Benefits</Link>
@@ -170,6 +171,47 @@ export function Page() {
               </Link>
             </Button>
           </motion.div>
+        </section>
+
+        <section id="information" className="py-20">
+          <h3 className="text-3xl font-bold text-center mb-12">Network Information</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center">
+              <h4 className="text-lg font-semibold mb-2">DCT Price</h4>
+              <p className="text-2xl">$1.1111</p>
+            </div>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center">
+              <h4 className="text-lg font-semibold mb-2">Total Providers</h4>
+              <p className="text-2xl">3</p>
+            </div>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center">
+              <h4 className="text-lg font-semibold mb-2">Blocks Validated</h4>
+              <p className="text-2xl">234,424</p>
+            </div>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center">
+              <h4 className="text-lg font-semibold mb-2">Until Next Halving</h4>
+              <p className="text-2xl">150,000</p>
+            </div>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center">
+              <h4 className="text-lg font-semibold mb-2">Block Validators</h4>
+              <p className="text-2xl">150</p>
+            </div>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center">
+              <h4 className="text-lg font-semibold mb-2">Block Reward</h4>
+              <p className="text-2xl">50 DCT</p>
+            </div>
+            <div className="bg-white bg-opacity-10 p-6 rounded-lg text-center col-span-2">
+              <h4 className="text-lg font-semibold mb-2">Backend Canister</h4>
+              <Link 
+                href="https://dashboard.internetcomputer.org/canister/ggi4a-wyaaa-aaaai-actqq-cai"
+                className="text-xl text-blue-300 hover:text-blue-200 break-all"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ggi4a-wyaaa-aaaai-actqq-cai
+              </Link>
+            </div>
+          </div>
         </section>
 
         <section id="features" className="py-20">
