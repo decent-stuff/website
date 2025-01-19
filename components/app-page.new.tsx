@@ -57,7 +57,7 @@ const infoSections = [
     that&apos;s shaking up the cloud oligopoly by enabling peer-to-peer resource sharing. Say goodbye to steep pricing and 
     those pesky region-wide outages!<br/><br/>
     <strong>Key highlights:</strong><br/>
-    • Provider reputations and reviews tracked in tamper-proof ledger<br/>
+    • Provider reputations tracked in tamper-proof ledger<br/>
     • No gatekeepers or central control<br/>
     • Self-sustaining with minimal fees<br/>
     • Community-driven evolution`
@@ -125,21 +125,19 @@ export function Page() {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white">
       <header className="p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">Decent Cloud</h1>
-        <div className="flex flex-col items-end gap-4">
-          <div className="flex items-center gap-8">
-            <nav className="space-x-4">
-              <Link href="#features" className="hover:underline">Features</Link>
-              <Link href="#info" className="hover:underline">Learn More</Link>
-              <Link href="#benefits" className="hover:underline">Benefits</Link>
-              <Link
-                href="https://github.com/decent-stuff/decent-cloud"
-                className="gap-2 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              ><FontAwesomeIcon icon={faGithub} /> GitHub</Link>
-            </nav>
-            <AuthButtons />
-          </div>
+        <div className="flex items-center gap-8">
+          <nav className="space-x-4">
+            <Link href="#features" className="hover:underline">Features</Link>
+            <Link href="#info" className="hover:underline">Learn More</Link>
+            <Link href="#benefits" className="hover:underline">Benefits</Link>
+            <Link
+              href="https://github.com/decent-stuff/decent-cloud"
+              className="gap-2 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            ><FontAwesomeIcon icon={faGithub} /> GitHub</Link>
+          </nav>
+          <AuthButtons />
         </div>
       </header>
 
@@ -194,9 +192,9 @@ export function Page() {
                 </tr>
                 <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                   <td className="p-2 pl-4">
-                    <span className="font-semibold">Provider Squad 🤝</span>
+                    <span className="font-semibold">Cloud Squad 🤝</span>
                     <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    Our awesome providers making the cloud decent again!
+                      Our awesome providers making the cloud decent again!
                     </span>
                   </td>
                   <td className="p-2 pr-4 text-right">3 providers</td>
@@ -205,7 +203,7 @@ export function Page() {
                   <td className="p-2 pl-4">
                     <span className="font-semibold">Block Party 🎉</span>
                     <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    234,424 blocks validated and counting!
+                      234,424 blocks validated and counting!
                     </span>
                   </td>
                   <td className="p-2 pr-4 text-right">234,424</td>
@@ -214,7 +212,7 @@ export function Page() {
                   <td className="p-2 pl-4">
                     <span className="font-semibold">Blocks Until Next Halving ⏳</span>
                     <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    150,000 blocks until rewards halve!
+                      150,000 blocks until rewards halve!
                     </span>
                   </td>
                   <td className="p-2 pr-4 text-right">150,000</td>
@@ -222,8 +220,8 @@ export function Page() {
                 <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                   <td className="p-2 pl-4">
                     <span className="font-semibold">Current Block Validators 🛡️</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    150 validators keeping us decent!
+                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                      150 validators keeping us decent!
                     </span>
                   </td>
                   <td className="p-2 pr-4 text-right">150</td>
@@ -231,8 +229,8 @@ export function Page() {
                 <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                   <td className="p-2 pl-4">
                     <span className="font-semibold">Current Blocks Rewards 🎁</span>
-                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                    50 DCT per validated block! With carry-over!
+                    <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                      50 DCT per validated block! With carry-over!
                     </span>
                   </td>
                   <td className="p-2 pr-4 text-right">50 DCT</td>
