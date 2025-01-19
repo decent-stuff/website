@@ -93,6 +93,20 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white min-h-screen;
+  }
+}
+
+@layer utilities {
+  .feature-card {
+    @apply bg-white bg-opacity-10 p-6 rounded-lg transition-all duration-300;
+  }
+  
+  .feature-card:hover {
+    @apply bg-opacity-20 transform -translate-y-1;
+  }
+  
+  .feature-card.active {
+    @apply ring-2 ring-purple-400;
   }
 }

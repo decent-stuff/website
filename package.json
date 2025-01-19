@@ -21,6 +21,7 @@
     "next": "15.0.2",
     "react": "^18",
     "react-dom": "^18",
+    "svelte-motion": "^0.12.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },
