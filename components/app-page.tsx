@@ -1,25 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
-import { ArrowRight } from "lucide-react"
-
-interface FeatureCardProps {
-  icon: string;
-  title: string;
-  description: string;
-  index: number;
-}
-
-interface BenefitCardProps {
-  title: string;
-  benefits: string[];
-  index: number;
-}
+import { motion, AnimatePresence } from "framer-motion"
 
 interface InfoSectionProps {
   title: string;
@@ -66,8 +50,8 @@ const infoSections = [
   {
     title: "What is Decent Cloud?",
     icon: "🤔",
-    content: `Think of us as the "Airbnb of cloud services" - just more fair and open! We're a community-driven platform 
-    that's shaking up the cloud oligopoly by enabling peer-to-peer resource sharing. Say goodbye to steep pricing and 
+    content: `Think of us as the &quot;Airbnb of cloud services&quot; - just more fair and open! We&apos;re a community-driven platform 
+    that&apos;s shaking up the cloud oligopoly by enabling peer-to-peer resource sharing. Say goodbye to steep pricing and 
     those pesky region-wide outages!<br/><br/>
     <strong>Key highlights:</strong><br/>
     • Provider reputations tracked in tamper-proof ledger<br/>
@@ -124,23 +108,14 @@ const features = [
 ];
 
 export function Page() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeFeature, setActiveFeature] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-
     const interval = setInterval(() => {
       setActiveFeature((prev) => (prev + 1) % features.length);
     }, 5000);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -171,7 +146,7 @@ export function Page() {
             initial={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Where the sky's not the limit, it's just the beginning!
+            Where the sky&apos;s not the limit, it&apos;s just the beginning!
           </motion.p>
           <motion.div
             animate={{ opacity: 1, y: 0 }}
@@ -227,8 +202,8 @@ export function Page() {
             >
               <h4 className="text-2xl font-bold mb-4">For Developers</h4>
               <ul className="list-disc list-inside">
-                <li>Convenience: Find suitable cloud providers faster than you can say "404 not found"</li>
-                <li>Trust: Obtain legal guarantees and SLAs worth the digital paper they're written on</li>
+                <li>Convenience: Find suitable cloud providers faster than you can say &quot;404 not found&quot;</li>
+                <li>Trust: Obtain legal guarantees and SLAs worth the digital paper they&apos;re written on</li>
                 <li>No vendor lock-in: Easy multi-cloud deployments with consistent APIs</li>
               </ul>
             </motion.div>
@@ -253,48 +228,5 @@ export function Page() {
         <p>&copy; 2025 Decent Cloud. All rights reserved.</p>
       </footer>
     </div>
-  )
-}
-
-function FeatureCard({ icon, title, description, index }: FeatureCardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="bg-white bg-opacity-10 p-6 rounded-lg"
-    >
-      <div className="text-4xl mb-4">{icon}</div>
-      <h4 className="text-xl font-bold mb-2">{title}</h4>
-      <p>{description}</p>
-    </motion.div>
-  )
-}
-
-function BenefitCard({ title, benefits, index }: BenefitCardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="bg-white bg-opacity-10 p-6 rounded-lg"
-    >
-      <h4 className="text-2xl font-bold mb-4">{title}</h4>
-      <ul className="list-disc list-inside space-y-2">
-        {benefits.map((benefit, index) => (
-          <motion.li
-            key={index}
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
-          >
-            {benefit}
-          </motion.li>
-        ))}
-      </ul>
-    </motion.div>
   )
 }
