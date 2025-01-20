@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { AuthButtons } from "@/components/auth-buttons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import {Typewriter} from "react-simple-typewriter";
 
 interface InfoSectionProps {
   title: string;
@@ -136,9 +137,9 @@ export function Page({ dashboardData }: PageProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white">
+    <div className="min-h-screen bg-animated text-white">
       <header className="p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Decent Cloud</h1>
+        <h1 className="text-3xl font-bold">Decent Cloud</h1>
         <div className="flex flex-col items-end gap-4">
           <div className="flex items-center gap-8">
             <nav className="space-x-4">
@@ -159,44 +160,64 @@ export function Page({ dashboardData }: PageProps) {
 
       <main className="container mx-auto px-4">
         <section className="text-center py-20">
-          <motion.h2
-            className="text-5xl font-bold mb-6"
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+          <motion.h1
+              className="text-6xl lg:text-7xl font-extrabold text-white leading-tight"
+              initial={{opacity: 0, y: -20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{duration: 0.8}}
           >
-            Welcome to Decent Cloud
-          </motion.h2>
+            Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Decent Cloud</span>
+          </motion.h1>
           <motion.p
-            className="text-xl mb-8"
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xl mb-8"
+              animate={{opacity: 1, y: 0}}
+              initial={{opacity: 0, y: 20}}
+              transition={{duration: 0.5, delay: 0.2}}
           >
             Where the sky&apos;s not the limit, it&apos;s just the beginning!
           </motion.p>
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+              animate={{opacity: 1, y: 0}}
+              initial={{opacity: 0, y: 20}}
+              transition={{duration: 0.5, delay: 0.4}}
           >
-            <Button className="bg-white text-purple-900 px-6 py-3 rounded-full font-bold hover:bg-purple-100 transition duration-300">
+            <Button
+                className="px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300 hover:brightness-110 hover:shadow-lg"
+            >
               <Link href="https://github.com/orgs/decent-stuff/discussions">
-                Join the development
+                Join the Development
               </Link>
             </Button>
+
+
           </motion.div>
+          <motion.h2
+              className="text-4xl font-bold text-center text-white"
+              animate={{opacity: 1, y: 0}}
+              initial={{opacity: 0, y: -20}}
+              transition={{duration: 0.8}}
+          >
+            <Typewriter
+                words={['Peer-to-Peer Cloud', 'No Vendor Lock-in', 'Community-Driven']}
+                loop={true}
+                cursor
+                cursorStyle="|"
+                typeSpeed={50}
+                deleteSpeed={30}
+                delaySpeed={1000}
+            />
+          </motion.h2>
         </section>
 
         {dashboardData && (
-          <section className="py-10">
-            <motion.div 
-              className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
-              animate={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <table className="w-full text-sm">
+            <section className="py-10">
+              <motion.div
+                  className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
+                  animate={{opacity: 1, y: 0}}
+                  initial={{opacity: 0, y: 20}}
+                  transition={{duration: 0.5}}
+              >
+                <table className="w-full text-sm">
                 <tbody>
                   <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                     <td className="p-2 pl-4">

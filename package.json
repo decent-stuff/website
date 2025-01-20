@@ -30,6 +30,7 @@
     "next": "^15.1.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-simple-typewriter": "^5.0.1",
     "svelte-motion": "^0.12.2",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
