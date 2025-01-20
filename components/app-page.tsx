@@ -137,8 +137,8 @@ export function Page({ dashboardData }: PageProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-animated text-white">
-      <header className="p-4 flex justify-between items-center">
+    <div className="min-h-screen bg-animated text-white  px-48">
+      <header className="py-4 flex justify-between items-center">
         <h1 className="text-3xl font-bold">Decent Cloud</h1>
         <div className="flex flex-col items-end gap-4">
           <div className="flex items-center gap-8">
@@ -158,55 +158,91 @@ export function Page({ dashboardData }: PageProps) {
         </div>
       </header>
 
-      <main className="container mx-auto px-4">
-        <section className="text-center py-20">
-          <motion.h1
-              className="text-6xl lg:text-7xl font-extrabold text-white leading-tight"
-              initial={{opacity: 0, y: -20}}
-              animate={{opacity: 1, y: 0}}
-              transition={{duration: 0.8}}
-          >
-            Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Decent Cloud</span>
-          </motion.h1>
-          <motion.p
-              className="text-xl mb-8"
-              animate={{opacity: 1, y: 0}}
-              initial={{opacity: 0, y: 20}}
-              transition={{duration: 0.5, delay: 0.2}}
-          >
-            Where the sky&apos;s not the limit, it&apos;s just the beginning!
-          </motion.p>
-          <motion.div
-              animate={{opacity: 1, y: 0}}
-              initial={{opacity: 0, y: 20}}
-              transition={{duration: 0.5, delay: 0.4}}
-          >
-            <Button
-                className="px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300 hover:brightness-110 hover:shadow-lg"
+      <main className="container mx-auto">
+        <section className="min-h-screen flex items-center justify-center text-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Left Column - Text Content */}
+            <div className="text-center md:text-left">
+              <motion.h1
+                  className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight"
+                  initial={{opacity: 0, y: -20}}
+                  animate={{opacity: 1, y: 0}}
+                  transition={{duration: 0.8}}
+              >
+                Welcome to <br/><span
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+          Decent Cloud
+        </span>
+              </motion.h1>
+
+              <motion.p
+                  className="text-lg md:text-xl mt-4 text-white/80"
+                  animate={{opacity: 1, y: 0}}
+                  initial={{opacity: 0, y: 20}}
+                  transition={{duration: 0.5, delay: 0.2}}
+              >
+                Where the sky&apos;s not the limit, it&apos;s just the beginning!
+              </motion.p>
+
+              <motion.h2
+                  className="text-xl md:text-2xl mt-2 text-white/80 font-bold"
+                  animate={{opacity: 1, y: 0}}
+                  initial={{opacity: 0, y: -20}}
+                  transition={{duration: 0.8}}
+              >
+                <Typewriter
+                    words={['Peer-to-Peer Cloud', 'No Vendor Lock-in', 'Community-Driven']}
+                    loop={true}
+                    cursor
+                    cursorStyle="|"
+                    typeSpeed={50}
+                    deleteSpeed={30}
+                    delaySpeed={1000}
+                />
+              </motion.h2>
+
+              <motion.div
+                  animate={{opacity: 1, y: 0}}
+                  initial={{opacity: 0, y: 20}}
+                  transition={{duration: 0.5, delay: 0.4}}
+                  className="mt-8"
+              >
+                <Button
+                    className="px-8 py-4 rounded-full font-bold text-white bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300 hover:brightness-110 hover:shadow-lg"
+                >
+                  <Link href="https://github.com/orgs/decent-stuff/discussions">
+                    Join the Development
+                  </Link>
+                </Button>
+              </motion.div>
+
+            </div>
+
+            {/* Right Column - Image or SVG */}
+            <motion.div
+                className="flex justify-center md:justify-end"
+                initial={{opacity: 0, scale: 0.8}}
+                animate={{opacity: 1, scale: 1}}
+                transition={{duration: 0.8, delay: 0.3}}
             >
-              <Link href="https://github.com/orgs/decent-stuff/discussions">
-                Join the Development
-              </Link>
-            </Button>
+              <img
+                  src="/hero-image.svg"
+                  alt="Cloud Illustration"
+                  className="w-full max-w-md md:max-w-lg"
+              />
+            </motion.div>
+          </div>
 
-
-          </motion.div>
-          <motion.h2
-              className="text-4xl font-bold text-center text-white"
-              animate={{opacity: 1, y: 0}}
-              initial={{opacity: 0, y: -20}}
-              transition={{duration: 0.8}}
+          <motion.div
+              animate={{y: [0, 10, 0]}}
+              transition={{duration: 1.5, repeat: Infinity}}
+              className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           >
-            <Typewriter
-                words={['Peer-to-Peer Cloud', 'No Vendor Lock-in', 'Community-Driven']}
-                loop={true}
-                cursor
-                cursorStyle="|"
-                typeSpeed={50}
-                deleteSpeed={30}
-                delaySpeed={1000}
-            />
-          </motion.h2>
+            <div className="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center">
+              <span className="animate-bounce text-white text-xl">↓</span>
+            </div>
+          </motion.div>
+
         </section>
 
         {dashboardData && (
@@ -218,11 +254,12 @@ export function Page({ dashboardData }: PageProps) {
                   transition={{duration: 0.5}}
               >
                 <table className="w-full text-sm">
-                <tbody>
+                  <tbody>
                   <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                     <td className="p-2 pl-4">
                       <span className="font-semibold">Latest DCT Price 💎</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                      <span
+                          className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
                         Our token is like a digital diamond - rare, valuable, and totally decent!
                       </span>
                     </td>
@@ -231,7 +268,8 @@ export function Page({ dashboardData }: PageProps) {
                   <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                     <td className="p-2 pl-4">
                       <span className="font-semibold">Provider Squad 🤝</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                      <span
+                          className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
                         Our awesome providers making the cloud decent again!
                       </span>
                     </td>
@@ -240,7 +278,8 @@ export function Page({ dashboardData }: PageProps) {
                   <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
                     <td className="p-2 pl-4">
                       <span className="font-semibold">Block Party 🎉</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                      <span
+                          className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
                         {dashboardData.totalBlocks.toLocaleString()} blocks validated and counting!
                       </span>
                     </td>
