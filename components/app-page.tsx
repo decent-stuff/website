@@ -2,13 +2,10 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
-import { AuthButtons } from "@/components/auth-buttons"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import {Typewriter} from "react-simple-typewriter";
+import Navbar from "@/components/navbar";
+import HeroSection from "@/components/hero-section";
 
 interface InfoSectionProps {
   title: string;
@@ -139,154 +136,11 @@ export function Page({ dashboardData }: PageProps) {
 
   return (
       <>
-        <div className="min-h-screen bg-animated text-white  px-48">
-          <header
-              className="fixed top-0 left-0 w-full bg-gradient-to-b from-black/80 to-transparent backdrop-blur-lg z-50 py-4 px-8 flex justify-between items-center transition-all duration-300">
-            {/* Logo */}
-            <h1 className="text-3xl font-bold text-white tracking-wide px-48">
-              Decent Cloud
-            </h1>
-
-            {/* Navigation Links */}
-            <nav className="hidden md:flex space-x-8 text-white text-lg font-medium">
-              <Link href="#features" className="hover:text-blue-400 transition duration-300">Features</Link>
-              <Link href="#info" className="hover:text-blue-400 transition duration-300">Learn More</Link>
-              <Link href="#benefits" className="hover:text-blue-400 transition duration-300">Benefits</Link>
-              <Link
-                  href="https://github.com/decent-stuff/decent-cloud"
-                  className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
-                  target="_blank"
-                  rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faGithub}/>
-                GitHub
-              </Link>
-            </nav>
-
-            {/* Auth Buttons */}
-            <div className="hidden md:block px-48">
-              <AuthButtons/>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button id="menu-toggle" className="text-white focus:outline-none">
-                <FontAwesomeIcon icon={faBars} size="lg"/>
-              </button>
-            </div>
-
-            {/* Mobile Menu */}
-            <div id="mobile-menu"
-                 className="hidden fixed top-16 right-0 bg-black/90 backdrop-blur-md w-full h-screen md:hidden flex flex-col items-center gap-8 py-20 text-white text-xl">
-              <Link href="#features" className="hover:text-blue-400">Features</Link>
-              <Link href="#info" className="hover:text-blue-400">Learn More</Link>
-              <Link href="#benefits" className="hover:text-blue-400">Benefits</Link>
-              <Link
-                  href="https://github.com/decent-stuff/decent-cloud"
-                  className="flex items-center gap-2 hover:text-blue-400"
-                  target="_blank"
-                  rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faGithub}/>
-                GitHub
-              </Link>
-              <AuthButtons/>
-            </div>
-          </header>
+        <div className="min-h-screen bg-animated text-white  px-6 sm:px-8 md:px-12 lg:px-22 xl:px-30">
+          <Navbar/>
+          <HeroSection/>
 
           <main className="container mx-auto">
-            <section className="min-h-screen flex items-center justify-center text-center">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                {/* Left Column - Text Content */}
-                <div className="text-center md:text-left">
-                  <motion.h1
-                      className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight"
-                      initial={{opacity: 0, y: -20}}
-                      animate={{opacity: 1, y: 0}}
-                      transition={{duration: 0.8}}
-                  >
-                    Welcome to <br/><span
-                      className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-                                  Decent Cloud
-                              </span>
-                  </motion.h1>
-
-                  <motion.p
-                      className="text-lg md:text-xl mt-4 text-white/80"
-                      animate={{opacity: 1, y: 0}}
-                      initial={{opacity: 0, y: 20}}
-                      transition={{duration: 0.5, delay: 0.2}}
-                  >
-                    Where the sky&apos;s not the limit, it&apos;s just the beginning!
-                  </motion.p>
-
-                  <motion.h2
-                      className="text-xl md:text-2xl mt-2 text-white/80 font-bold"
-                      animate={{opacity: 1, y: 0}}
-                      initial={{opacity: 0, y: -20}}
-                      transition={{duration: 0.8}}
-                  >
-                    <Typewriter
-                        words={['Peer-to-Peer Cloud', 'No Vendor Lock-in', 'Community-Driven']}
-                        loop={true}
-                        cursor
-                        cursorStyle="|"
-                        typeSpeed={50}
-                        deleteSpeed={30}
-                        delaySpeed={1000}/>
-                  </motion.h2>
-
-                  <motion.div
-                      animate={{opacity: 1, y: 0}}
-                      initial={{opacity: 0, y: 20}}
-                      transition={{duration: 0.5, delay: 0.4}}
-                      className="mt-8"
-                  >
-                    <Button
-                        className="relative px-10 py-5 md:px-14 md:py-6 rounded-full font-extrabold text-xl md:text-2xl text-white bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300
-                          hover:brightness-110 hover:shadow-2xl hover:scale-105"
-                    >
-                      <Link href="https://github.com/orgs/decent-stuff/discussions" className="relative z-10 flex items-center gap-3">
-                        <span>🚀 Join the Development</span>
-                      </Link>
-                      <span
-                          className="absolute inset-0 bg-white/20 rounded-full scale-0 transition-transform duration-300 group-hover:scale-100"
-                      ></span>
-                    </Button>
-                  </motion.div>
-
-                </div>
-
-                {/* Right Column - Image or SVG */}
-                <motion.div
-                    className="flex justify-center md:justify-end"
-                    initial={{opacity: 0, scale: 0.8}}
-                    animate={{opacity: 1, scale: 1}}
-                    transition={{duration: 0.8, delay: 0.3}}
-                >
-                  <img
-                      src="./images/cloud-illustration.png"
-                      alt="Cloud Illustration"
-                      className="w-full max-w-md md:max-w-lg"/>
-                </motion.div>
-              </div>
-
-              <motion.div
-                  animate={{y: [0, 15, 0]}}
-                  transition={{duration: 2, repeat: Infinity, ease: "easeInOut"}}
-                  className="absolute bottom-10  transform  flex flex-col items-center gap-2"
-              >
-                <div
-                    className="w-12 h-12 rounded-full border-2 border-white/30 flex items-center justify-center bg-white/10 backdrop-blur-lg shadow-lg animate-pulse">
-                  <span className="text-white text-3xl font-light">↓</span>
-                </div>
-
-                <p className="text-white/80 text-xs uppercase tracking-widest animate-fade-in">
-                  Scroll Down
-                </p>
-              </motion.div>
-
-            </section>
 
             {dashboardData && (
                 <section className="py-10">
