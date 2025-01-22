@@ -1,12 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
-import { AuthButtons } from "@/components/auth-buttons"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import Navbar from "@/components/navbar";
+import HeroSection from "@/components/hero-section";
 
 interface InfoSectionProps {
   title: string;
@@ -136,194 +133,156 @@ export function Page({ dashboardData }: PageProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 text-white">
-      <header className="p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Decent Cloud</h1>
-        <div className="flex flex-col items-end gap-4">
-          <div className="flex items-center gap-8">
-            <nav className="space-x-4">
-              <Link href="#features" className="hover:underline">Features</Link>
-              <Link href="#info" className="hover:underline">Learn More</Link>
-              <Link href="#benefits" className="hover:underline">Benefits</Link>
-              <Link
-                href="https://github.com/decent-stuff/decent-cloud"
-                className="gap-2 hover:underline"
-                target="_blank"
-                rel="noopener noreferrer"
-              ><FontAwesomeIcon icon={faGithub} /> GitHub</Link>
-            </nav>
-            <AuthButtons />
-          </div>
-        </div>
-      </header>
+      <>
+        <div className="min-h-screen bg-animated text-white  px-6 sm:px-8 md:px-12 lg:px-22 xl:px-30">
+          <Navbar/>
+          <HeroSection/>
 
-      <main className="container mx-auto px-4">
-        <section className="text-center py-20">
-          <motion.h2
-            className="text-5xl font-bold mb-6"
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-          >
-            Welcome to Decent Cloud
-          </motion.h2>
-          <motion.p
-            className="text-xl mb-8"
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Where the sky&apos;s not the limit, it&apos;s just the beginning!
-          </motion.p>
-          <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Button className="bg-white text-purple-900 px-6 py-3 rounded-full font-bold hover:bg-purple-100 transition duration-300">
-              <Link href="https://github.com/orgs/decent-stuff/discussions">
-                Join the development
-              </Link>
-            </Button>
-          </motion.div>
-        </section>
+          <main className="container mx-auto">
 
-        {dashboardData && (
-          <section className="py-10">
-            <motion.div 
-              className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
-              animate={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <table className="w-full text-sm">
-                <tbody>
-                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                    <td className="p-2 pl-4">
-                      <span className="font-semibold">Latest DCT Price 💎</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                        Our token is like a digital diamond - rare, valuable, and totally decent!
-                      </span>
-                    </td>
-                    <td className="p-2 pr-4 text-right">${dashboardData.dctPrice.toFixed(4)}</td>
-                  </tr>
-                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                    <td className="p-2 pl-4">
-                      <span className="font-semibold">Provider Squad 🤝</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                        Our awesome providers making the cloud decent again!
-                      </span>
-                    </td>
-                    <td className="p-2 pr-4 text-right">{dashboardData.providerCount} providers</td>
-                  </tr>
-                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                    <td className="p-2 pl-4">
-                      <span className="font-semibold">Block Party 🎉</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                        {dashboardData.totalBlocks.toLocaleString()} blocks validated and counting!
-                      </span>
-                    </td>
-                    <td className="p-2 pr-4 text-right">{dashboardData.totalBlocks.toLocaleString()}</td>
-                  </tr>
-                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                    <td className="p-2 pl-4">
-                      <span className="font-semibold">Blocks Until Next Halving ⏳</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                        {dashboardData.blocksUntilHalving.toLocaleString()} blocks until rewards halve!
-                      </span>
-                    </td>
-                    <td className="p-2 pr-4 text-right">{dashboardData.blocksUntilHalving.toLocaleString()}</td>
-                  </tr>
-                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                    <td className="p-2 pl-4">
-                      <span className="font-semibold">Current Block Validators 🛡️</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                        {dashboardData.validatorCount} validators keeping us decent!
-                      </span>
-                    </td>
-                    <td className="p-2 pr-4 text-right">{dashboardData.validatorCount}</td>
-                  </tr>
-                  <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                    <td className="p-2 pl-4">
-                      <span className="font-semibold">Current Block Rewards 🎁</span>
-                      <span className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                        {dashboardData.blockReward} DCT per validated block! With carry-over if unclaimed!
-                      </span>
-                    </td>
-                    <td className="p-2 pr-4 text-right">{dashboardData.blockReward.toFixed(2)} DCT</td>
-                  </tr>
-                </tbody>
-              </table>
-            </motion.div>
-          </section>
-        )}
+            {dashboardData && (
+                <section className="py-10">
+                  <motion.div
+                      className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
+                      animate={{opacity: 1, y: 0}}
+                      initial={{opacity: 0, y: 20}}
+                      transition={{duration: 0.5}}
+                  >
+                    <table className="w-full text-sm">
+                      <tbody>
+                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                      <td className="p-2 pl-4">
+                          <span className="font-semibold">Latest DCT Price 💎</span>
+                          <span
+                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                                              Our token is like a digital diamond - rare, valuable, and totally decent!
+                                          </span>
+                        </td>
+                        <td className="p-2 pr-4 text-right">${dashboardData.dctPrice.toFixed(4)}</td>
+                      </tr>
+                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                        <td className="p-2 pl-4">
+                          <span className="font-semibold">Provider Squad 🤝</span>
+                          <span
+                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                                              Our awesome providers making the cloud decent again!
+                                          </span>
+                        </td>
+                        <td className="p-2 pr-4 text-right">{dashboardData.providerCount} providers</td>
+                      </tr>
+                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                        <td className="p-2 pl-4">
+                          <span className="font-semibold">Block Party 🎉</span>
+                          <span
+                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                                              {dashboardData.totalBlocks.toLocaleString()} blocks validated and counting!
+                                          </span>
+                        </td>
+                        <td className="p-2 pr-4 text-right">{dashboardData.totalBlocks.toLocaleString()}</td>
+                      </tr>
+                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                        <td className="p-2 pl-4">
+                          <span className="font-semibold">Blocks Until Next Halving ⏳</span>
+                          <span
+                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                                              {dashboardData.blocksUntilHalving.toLocaleString()} blocks until rewards halve!
+                                          </span>
+                        </td>
+                        <td className="p-2 pr-4 text-right">{dashboardData.blocksUntilHalving.toLocaleString()}</td>
+                      </tr>
+                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                        <td className="p-2 pl-4">
+                          <span className="font-semibold">Current Block Validators 🛡️</span>
+                          <span
+                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                                              {dashboardData.validatorCount} validators keeping us decent!
+                                          </span>
+                        </td>
+                        <td className="p-2 pr-4 text-right">{dashboardData.validatorCount}</td>
+                      </tr>
+                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
+                        <td className="p-2 pl-4">
+                          <span className="font-semibold">Current Block Rewards 🎁</span>
+                          <span
+                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
+                                              {dashboardData.blockReward} DCT per validated block! With carry-over if unclaimed!
+                                          </span>
+                        </td>
+                        <td className="p-2 pr-4 text-right">{dashboardData.blockReward.toFixed(2)} DCT</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </motion.div>
+                </section>
+            )}
 
-        <section id="features" className="py-20">
-          <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <AnimatePresence>
-              {features.map((feature, index) => (
+            <section id="features" className="py-20">
+              <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <AnimatePresence>
+                  {features.map((feature, index) => (
+                      <motion.div
+                          key={index}
+                          className={`bg-white bg-opacity-10 p-6 rounded-lg ${index === activeFeature ? 'ring-2 ring-purple-400' : ''}`}
+                          animate={{opacity: 1, y: 0}}
+                          initial={{opacity: 0, y: 20}}
+                          transition={{duration: 0.5, delay: index * 0.1}}
+                      >
+                        <div className="text-4xl mb-4">{feature.icon}</div>
+                        <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
+                        <p>{feature.description}</p>
+                      </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </section>
+
+            <section id="info" className="py-20">
+              <h3 className="text-3xl font-bold text-center mb-12">Want to know more?</h3>
+              <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
+                {infoSections.map((section, index) => (
+                    <InfoSection key={index} {...section} />
+                ))}
+              </div>
+            </section>
+
+            <section id="benefits" className="py-20">
+              <h3 className="text-3xl font-bold text-center mb-12">Benefits</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <motion.div
-                  key={index}
-                  className={`bg-white bg-opacity-10 p-6 rounded-lg ${index === activeFeature ? 'ring-2 ring-purple-400' : ''}`}
-                  animate={{ opacity: 1, y: 0 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="bg-white bg-opacity-10 p-6 rounded-lg"
+                    animate={{opacity: 1, x: 0}}
+                    initial={{opacity: 0, x: -20}}
+                    transition={{duration: 0.5}}
                 >
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
-                  <p>{feature.description}</p>
+                  <h4 className="text-2xl font-bold mb-4">For Developers</h4>
+                  <ul className="list-disc list-inside">
+                    <li>Convenience: Find suitable cloud providers faster than you can say &quot;404 not
+                      found&quot;</li>
+                    <li>Trust: Obtain legal guarantees and SLAs worth the digital paper they&apos;re written on</li>
+                    <li>No vendor lock-in: Easy multi-cloud deployments with consistent APIs</li>
+                  </ul>
                 </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        </section>
-
-        <section id="info" className="py-20">
-          <h3 className="text-3xl font-bold text-center mb-12">Want to know more?</h3>
-          <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
-            {infoSections.map((section, index) => (
-              <InfoSection key={index} {...section} />
-            ))}
-          </div>
-        </section>
-
-        <section id="benefits" className="py-20">
-          <h3 className="text-3xl font-bold text-center mb-12">Benefits</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              className="bg-white bg-opacity-10 p-6 rounded-lg"
-              animate={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h4 className="text-2xl font-bold mb-4">For Developers</h4>
-              <ul className="list-disc list-inside">
-                <li>Convenience: Find suitable cloud providers faster than you can say &quot;404 not found&quot;</li>
-                <li>Trust: Obtain legal guarantees and SLAs worth the digital paper they&apos;re written on</li>
-                <li>No vendor lock-in: Easy multi-cloud deployments with consistent APIs</li>
-              </ul>
-            </motion.div>
-            <motion.div
-              className="bg-white bg-opacity-10 p-6 rounded-lg"
-              animate={{ opacity: 1, x: 0 }}
-              initial={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <h4 className="text-2xl font-bold mb-4">For Node Providers</h4>
-              <ul className="list-disc list-inside">
-                <li>Market: Access to a trillion-dollar crypto market</li>
-                <li>Users: Reach a global user base</li>
-                <li>Fair pricing: Transparent pricing without a race-to-the-bottom approach</li>
-              </ul>
-            </motion.div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="text-center py-6 bg-black bg-opacity-30">
-        <p>&copy; 2025 Decent Cloud. All rights reserved.</p>
-      </footer>
-    </div>
-  )
+                <motion.div
+                    className="bg-white bg-opacity-10 p-6 rounded-lg"
+                    animate={{opacity: 1, x: 0}}
+                    initial={{opacity: 0, x: 20}}
+                    transition={{duration: 0.5, delay: 0.2}}
+                >
+                  <h4 className="text-2xl font-bold mb-4">For Node Providers</h4>
+                  <ul className="list-disc list-inside">
+                    <li>Market: Access to a trillion-dollar crypto market</li>
+                    <li>Users: Reach a global user base</li>
+                    <li>Fair pricing: Transparent pricing without a race-to-the-bottom approach</li>
+                  </ul>
+                </motion.div>
+              </div>
+            </section>
+          </main>
+        </div>
+        <footer className="text-center py-6 bg-black bg-opacity-30">
+          <p>&copy; 2025 Decent Cloud. All rights reserved.</p>
+        </footer>
+      </>
+)
 }
