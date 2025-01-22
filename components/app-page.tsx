@@ -1,9 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
-import {Typewriter} from "react-simple-typewriter";
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/hero-section";
 
