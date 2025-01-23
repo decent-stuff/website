@@ -6,6 +6,7 @@ import Navbar from "@/components/navbar";
 import HeroSection from "@/components/hero-section";
 import Footer from "@/components/footer";
 import DashboardSection from "@/components/dashboard-section";
+import FeaturesSection from "@/components/features-section";
 
 interface InfoSectionProps {
   title: string;
@@ -85,29 +86,6 @@ const infoSections = [
   }
 ];
 
-const features = [
-  {
-    icon: "🌐",
-    title: "Decentralized Physical Infrastructure (DePIN)",
-    description: "Access tailored virtual or physical servers from reputable node providers. It's not just a cloud, it's a whole sky full of possibilities!"
-  },
-  {
-    icon: "⭐",
-    title: "Reputation-Based System",
-    description: "Make informed decisions with our transparent provider reputation system. We put the 'trust' in trustless technology!"
-  },
-  {
-    icon: "🔒",
-    title: "Confidential Computing",
-    description: "Process sensitive data securely in Confidential Computing VMs. Your secrets are safe with us (even we don't know them)!"
-  },
-  {
-    icon: "🤝",
-    title: "No Vendor Lock-in",
-    description: "Easy multi-cloud deployments with consistent APIs and liberal Open Source license. Decent Cloud is going nowhere, you're safe with us. You're not just a customer, you're a free spirit!"
-  }
-];
-
 interface DashboardData {
   dctPrice: number;
   providerCount: number;
@@ -122,15 +100,6 @@ interface PageProps {
 }
 
 export function Page({ dashboardData }: PageProps) {
-  const [activeFeature, setActiveFeature] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveFeature((prev) => (prev + 1) % features.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
       <>
@@ -144,26 +113,7 @@ export function Page({ dashboardData }: PageProps) {
                   <DashboardSection dashboardData={dashboardData}/>
             )}
 
-            <section id="features" className="py-20">
-              <h3 className="text-3xl font-bold text-center mb-12">Key Features</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <AnimatePresence>
-                  {features.map((feature, index) => (
-                      <motion.div
-                          key={index}
-                          className={`bg-white bg-opacity-10 p-6 rounded-lg ${index === activeFeature ? 'ring-2 ring-purple-400' : ''}`}
-                          animate={{opacity: 1, y: 0}}
-                          initial={{opacity: 0, y: 20}}
-                          transition={{duration: 0.5, delay: index * 0.1}}
-                      >
-                        <div className="text-4xl mb-4">{feature.icon}</div>
-                        <h4 className="text-xl font-bold mb-2">{feature.title}</h4>
-                        <p>{feature.description}</p>
-                      </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
-            </section>
+            <FeaturesSection/>
 
             <section id="info" className="py-20">
               <h3 className="text-3xl font-bold text-center mb-12">Want to know more?</h3>
