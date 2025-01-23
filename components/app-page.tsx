@@ -14,9 +14,9 @@ interface InfoSectionProps {
 
 function InfoSection({ title, content, icon }: InfoSectionProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   return (
-    <motion.div 
+    <motion.div
       className="bg-white bg-opacity-10 p-6 rounded-lg"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -51,8 +51,8 @@ const infoSections = [
   {
     title: "What is Decent Cloud?",
     icon: "🤔",
-    content: `Think of us as the &quot;Airbnb of cloud services&quot; - just more fair and open! We&apos;re a community-driven platform 
-    that&apos;s shaking up the cloud oligopoly by enabling peer-to-peer resource sharing. Say goodbye to steep pricing and 
+    content: `Think of us as the &quot;Airbnb of cloud services&quot; - just more fair and open! We&apos;re a community-driven platform
+    that&apos;s shaking up the cloud oligopoly by enabling peer-to-peer resource sharing. Say goodbye to steep pricing and
     those pesky region-wide outages!<br/><br/>
     <strong>Key highlights:</strong><br/>
     • Provider reputations and reviews tracked in tamper-proof ledger<br/>
@@ -78,11 +78,9 @@ const infoSections = [
     title: "Show me the money! (Tokenomics)",
     icon: "💰",
     content: `Our Decentralized Cloud Token (DCT) powers the whole ecosystem:<br/><br/>
-    • <strong>Minting:</strong> New block every 10 mins, block rewards halving every 210k blocks<br/>
-    • <strong>Distribution:</strong> Rewards for active participants<br/>
-    • <strong>Entry:</strong> Small registration fee (0.5 DCT) for reward eligibility<br/>
-    • <strong>Governance:</strong> DAO-controlled for community-driven decisions<br/>
-    • <strong>Usage:</strong> Rent nodes with DCT, hold for growth, or cash out`
+    • <strong>Demand:</strong> Users need to acquire DC tokens to pay for renting services or resources<br/>
+    • <strong>Supply:</strong> DC tokens can be acquired by renting services or resources, or by mining/validating<br/>
+    • <strong>Governance:</strong> Platform is DAO-controlled for community-driven decisions<br/>`
   }
 ];
 
