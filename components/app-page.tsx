@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/hero-section";
 import Footer from "@/components/footer";
+import DashboardSection from "@/components/dashboard-section";
 
 interface InfoSectionProps {
   title: string;
@@ -137,82 +138,10 @@ export function Page({ dashboardData }: PageProps) {
           <Navbar/>
           <HeroSection/>
 
-          <main className="container mx-auto">
+          <main className="container mx-auto py-10">
 
             {dashboardData && (
-                <section className="py-10">
-                  <motion.div
-                      className="max-w-2xl mx-auto bg-white bg-opacity-10 rounded-lg overflow-hidden backdrop-blur-sm"
-                      animate={{opacity: 1, y: 0}}
-                      initial={{opacity: 0, y: 20}}
-                      transition={{duration: 0.5}}
-                  >
-                    <table className="w-full text-sm">
-                      <tbody>
-                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                        <td className="p-2 pl-4">
-                          <span className="font-semibold">Latest DCT Price 💎</span>
-                          <span
-                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                                              Our token is like a digital diamond - rare, valuable, and totally decent!
-                                          </span>
-                        </td>
-                        <td className="p-2 pr-4 text-right">${dashboardData.dctPrice.toFixed(4)}</td>
-                      </tr>
-                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                        <td className="p-2 pl-4">
-                          <span className="font-semibold">Provider Squad 🤝</span>
-                          <span
-                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                                              Our awesome providers making the cloud decent again!
-                                          </span>
-                        </td>
-                        <td className="p-2 pr-4 text-right">{dashboardData.providerCount} providers</td>
-                      </tr>
-                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                        <td className="p-2 pl-4">
-                          <span className="font-semibold">Block Party 🎉</span>
-                          <span
-                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                                              {dashboardData.totalBlocks.toLocaleString()} blocks validated and counting!
-                                          </span>
-                        </td>
-                        <td className="p-2 pr-4 text-right">{dashboardData.totalBlocks.toLocaleString()}</td>
-                      </tr>
-                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                        <td className="p-2 pl-4">
-                          <span className="font-semibold">Blocks Until Next Halving ⏳</span>
-                          <span
-                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                                              {dashboardData.blocksUntilHalving.toLocaleString()} blocks until rewards halve!
-                                          </span>
-                        </td>
-                        <td className="p-2 pr-4 text-right">{dashboardData.blocksUntilHalving.toLocaleString()}</td>
-                      </tr>
-                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                        <td className="p-2 pl-4">
-                          <span className="font-semibold">Current Block Validators 🛡️</span>
-                          <span
-                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                                              {dashboardData.validatorCount} validators keeping us decent!
-                                          </span>
-                        </td>
-                        <td className="p-2 pr-4 text-right">{dashboardData.validatorCount}</td>
-                      </tr>
-                      <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                        <td className="p-2 pl-4">
-                          <span className="font-semibold">Current Block Rewards 🎁</span>
-                          <span
-                              className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 bottom-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
-                                              {dashboardData.blockReward} DCT per validated block! With carry-over if unclaimed!
-                                          </span>
-                        </td>
-                        <td className="p-2 pr-4 text-right">{dashboardData.blockReward.toFixed(2)} DCT</td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </motion.div>
-                </section>
+                  <DashboardSection dashboardData={dashboardData}/>
             )}
 
             <section id="features" className="py-20">
