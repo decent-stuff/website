@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import HeaderSection from "@/components/ui/header";
 
 const dashboardItems = [
     {
@@ -42,9 +43,10 @@ const dashboardItems = [
 const DashboardSection = ({ dashboardData }) => {
     return (
         <section id="dashboard">
-            <h3 className="text-3xl font-bold text-center mb-12">
-                Dashboard
-            </h3>
+            <HeaderSection
+                title="Dashboard"
+                subtitle="Get a quick overview of Decent Cloud's current stats."
+            />
             <motion.div
                 className="max-w-4xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 gap-4"
                 initial={{opacity: 0, y: 20}}
