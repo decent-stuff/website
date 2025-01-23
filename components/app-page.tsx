@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/hero-section";
+import Footer from "@/components/footer";
 
 interface InfoSectionProps {
   title: string;
@@ -151,7 +152,7 @@ export function Page({ dashboardData }: PageProps) {
                     <table className="w-full text-sm">
                       <tbody>
                       <tr className="group border-b border-white/10 hover:bg-white/5 cursor-help relative">
-                      <td className="p-2 pl-4">
+                        <td className="p-2 pl-4">
                           <span className="font-semibold">Latest DCT Price 💎</span>
                           <span
                               className="invisible group-hover:visible absolute left-1/2 -translate-x-1/2 top-full mt-1 w-48 p-2 bg-gray-900 text-xs rounded-lg z-10">
@@ -280,9 +281,7 @@ export function Page({ dashboardData }: PageProps) {
             </section>
           </main>
         </div>
-        <footer className="text-center py-6 bg-black bg-opacity-30">
-          <p>&copy; 2025 Decent Cloud. All rights reserved.</p>
-        </footer>
+        <Footer/>
       </>
-)
+  )
 }
