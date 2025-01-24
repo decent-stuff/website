@@ -42,7 +42,7 @@ const dashboardItems = [
 
 const DashboardSection = ({ dashboardData }) => {
     return (
-        <section id="dashboard">
+        <section id="dashboard" >
             <HeaderSection
                 title="Dashboard"
                 subtitle="Get a quick overview of Decent Cloud's current stats."
