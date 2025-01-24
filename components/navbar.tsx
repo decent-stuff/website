@@ -24,17 +24,25 @@ const Navbar = () => {
                 className="hidden text-sm md:flex items-center text-white text-base sm:text-base md:text-base lg:text-lg xl:text-xl font-medium tracking-wide sm:tracking-normal">
                 <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 lg:space-x-6 xl:space-x-8">
                     <li>
-                        <Link href="#features" className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                        <Link href="#dashboard"
+                              className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                            Dashboard
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="#features"
+                              className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
                             Features
                         </Link>
                     </li>
                     <li>
                         <Link href="#info" className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
-                            Learn More
+                            About
                         </Link>
                     </li>
                     <li>
-                        <Link href="#benefits" className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                        <Link href="#benefits"
+                              className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
                             Benefits
                         </Link>
                     </li>
@@ -46,7 +54,6 @@ const Navbar = () => {
                             rel="noopener noreferrer"
                         >
                             <FontAwesomeIcon icon={faGithub}/>
-                            GitHub
                         </Link>
                     </li>
                 </ul>
