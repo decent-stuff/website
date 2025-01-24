@@ -7,46 +7,12 @@ import HeroSection from "@/components/hero-section";
 import Footer from "@/components/footer";
 import DashboardSection from "@/components/dashboard-section";
 import FeaturesSection from "@/components/features-section";
+import InfoSection from "@/components/info-section";
 
 interface InfoSectionProps {
   title: string;
   content: string;
   icon?: string;
-}
-
-function InfoSection({ title, content, icon }: InfoSectionProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  return (
-    <motion.div
-      className="bg-white bg-opacity-10 p-6 rounded-lg"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-    >
-      <div className="flex justify-between items-center cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
-        <h4 className="text-xl font-bold flex items-center gap-2">
-          {icon && <span>{icon}</span>}
-          {title}
-        </h4>
-        <button className="text-white/80 hover:text-white">
-          {isExpanded ? '−' : '+'}
-        </button>
-      </div>
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden"
-          >
-            <div className="mt-4 text-white/90" dangerouslySetInnerHTML={{ __html: content }} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
-  );
 }
 
 const infoSections = [
@@ -115,14 +81,7 @@ export function Page({ dashboardData }: PageProps) {
 
             <FeaturesSection/>
 
-            <section id="info" className="py-20">
-              <h3 className="text-3xl font-bold text-center mb-12">Want to know more?</h3>
-              <div className="grid grid-cols-1 gap-4 max-w-3xl mx-auto">
-                {infoSections.map((section, index) => (
-                    <InfoSection key={index} {...section} />
-                ))}
-              </div>
-            </section>
+            <InfoSection/>
 
             <section id="benefits" className="py-20">
               <h3 className="text-3xl font-bold text-center mb-12">Benefits</h3>
