@@ -27,7 +27,7 @@ const features = [
 const FeaturesSection = () => {
 
     return (
-        <section id="features" className="py-20 text-white">
+        <section id="features" className="pt-20 text-white">
             <div className="container mx-auto px-6 text-center">
                 {/* Section Header */}
                 <HeaderSection
