@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import HeaderSection from "@/components/ui/header";
 
 const features = [
@@ -26,6 +26,28 @@ const features = [
 
 const FeaturesSection = () => {
 
+    const [isPaused, setIsPaused] = useState(false);
+
+    useEffect(() => {
+        const handleTouchStart = () => setIsPaused(true);
+        const handleTouchEnd = () => setIsPaused(false);
+
+        // Add event listeners for mobile touch interactions
+        const cards = document.querySelectorAll('.feature-card');
+        cards.forEach((card) => {
+            card.addEventListener('touchstart', handleTouchStart);
+            card.addEventListener('touchend', handleTouchEnd);
+        });
+
+        return () => {
+            // Cleanup event listeners
+            cards.forEach((card) => {
+                card.removeEventListener('touchstart', handleTouchStart);
+                card.removeEventListener('touchend', handleTouchEnd);
+            });
+        };
+    }, []);
+
     return (
         <section id="features" className="pt-20 text-white">
             <div className="container mx-auto px-6 text-center">
@@ -37,16 +59,22 @@ const FeaturesSection = () => {
 
                 {/* Infinite Scrolling Slider */}
                 <div
-                    className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-12 -my-4">
+                    className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] py-12 -my-4"
+                >
                     <div
-                        className="flex gap-8 flex-nowrap w-max animate-move-left hover:[animation-play-state:paused]"
+                        className="flex gap-8 flex-nowrap w-max"
+                        style={{
+                            animationPlayState: isPaused ? 'paused' : 'running'
+                        }}
+                        onMouseEnter={() => setIsPaused(true)}
+                        onMouseLeave={() => setIsPaused(false)}
                     >
                         {[...Array(3)].map((_, idx) => (
                             <React.Fragment key={idx}>
                                 {features.map((feature, index) => (
                                     <div
                                         key={index}
-                                        className="w-80 border border-white/10 group relative flex flex-col bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-xl p-6 shadow-lg hover:bg-white/10 hover:shadow-xl transition duration-300 ease-in-out cursor-help hover:scale-105"
+                                        className="feature-card w-80 border border-white/10 relative flex flex-col  bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-xl p-6 shadow-lg  transition duration-300 ease-in-out cursor-help hover:bg-opacity-20 hover:shadow-xl hover:scale-105"
                                     >
                                         <div className="text-5xl mb-4 text-blue-400">{feature.icon}</div>
                                         <h4 className="text-2xl font-bold mb-3">{feature.title}</h4>
@@ -70,7 +98,7 @@ const FeaturesSection = () => {
                     }
                 }
 
-                .animate-move-left {
+                .flex {
                     animation: move-left 30s linear infinite;
                 }
             `}</style>
