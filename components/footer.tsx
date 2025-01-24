@@ -3,7 +3,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
     return (
-        <footer className="text-center py-4 bg-gradient-to-b from-transparent to-black text-white text-sm">
+        <footer className="text-center mt-30 py-8 bg-gradient-to-b from-transparent to-black text-white text-sm">
             <div className="container mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between px-6 space-y-3 md:space-y-0">
 
                 {/* Logo and Copyright */}
