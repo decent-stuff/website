@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Typewriter } from 'react-simple-typewriter';
 import { Button } from "@/components/ui/button"
+import ScrollIndicator from "@/components/ui/scroll-indicator";
 
 const HeroSection = () => {
     return (
@@ -94,19 +95,7 @@ const HeroSection = () => {
                 </motion.div>
             </div>
 
-            <motion.div
-                animate={{ y: [0, 15, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute bottom-10 transform flex flex-col items-center gap-2"
-            >
-                <div className="w-7 h-7 rounded-full border-2 border-white/30 flex items-center justify-center bg-white/10 backdrop-blur-lg shadow-lg animate-pulse">
-                    <span className="text-white text-3xl font-light">↓</span>
-                </div>
-
-                <p className="text-white/80 text-xs uppercase tracking-widest animate-fade-in">
-                    Scroll Down
-                </p>
-            </motion.div>
+            <ScrollIndicator/>
         </section>
     );
 };
