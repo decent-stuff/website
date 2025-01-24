@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from "framer-motion"
 import Navbar from "@/components/navbar";
 import HeroSection from "@/components/hero-section";
 import Footer from "@/components/footer";

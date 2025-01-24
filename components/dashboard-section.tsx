@@ -1,46 +1,67 @@
 import { motion } from 'framer-motion';
 import HeaderSection from "@/components/ui/header";
+import React from "react";
 
-const dashboardItems = [
+interface DashboardData {
+    dctPrice: number;
+    providerCount: number;
+    totalBlocks: number;
+    blocksUntilHalving: number;
+    validatorCount: number;
+    blockReward: number;
+}
+
+interface DashboardSectionProps {
+    dashboardData: DashboardData;
+}
+
+interface DashboardItem {
+    title: string;
+    key: keyof DashboardData;
+    format: (value: number) => string;
+    tooltip: string;
+}
+
+const dashboardItems: DashboardItem[] = [
     {
         title: "Latest DCT Price 💎",
         key: "dctPrice",
-        format: (value) => `$${value.toFixed(4)}`,
+        format: (value: number) => `$${value.toFixed(4)}`,
         tooltip: "Our token is like a digital diamond - rare, valuable, and totally decent!",
     },
     {
         title: "Provider Squad 🤝",
         key: "providerCount",
-        format: (value) => `${value} providers`,
+        format: (value: number) => `${value} providers`,
         tooltip: "Our awesome providers making the cloud decent again!",
     },
     {
         title: "Block Party 🎉",
         key: "totalBlocks",
-        format: (value) => value.toLocaleString(),
+        format: (value: number) => value.toLocaleString(),
         tooltip: "Blocks validated and counting!",
     },
     {
         title: "Blocks Until Next Halving ⏳",
         key: "blocksUntilHalving",
-        format: (value) => value.toLocaleString(),
+        format: (value: number) => value.toLocaleString(),
         tooltip: "Blocks until rewards halve!",
     },
     {
         title: "Current Block Validators 🛡️",
         key: "validatorCount",
-        format: (value) => `${value} validators`,
+        format: (value: number) => `${value} validators`,
         tooltip: "Validators keeping us decent!",
     },
     {
         title: "Current Block Rewards 🎁",
         key: "blockReward",
-        format: (value) => `${value.toFixed(2)} DCT`,
+        format: (value: number) => `${value.toFixed(2)} DCT`,
         tooltip: "DCT per validated block! With carry-over if unclaimed!",
     },
 ];
 
-const DashboardSection = ({ dashboardData }) => {
+const DashboardSection: React.FC<DashboardSectionProps> = ({ dashboardData }) => {
     return (
         <section id="dashboard" >
             <HeaderSection

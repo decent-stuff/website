@@ -31,10 +31,10 @@ const BenefitsSection = () => {
                             For Developers
                         </h4>
                         <ul className="list-disc list-inside text-gray-300 space-y-3 text-left">
-                            <li><strong>Convenience:</strong> Find suitable cloud providers faster than you can say "404
-                                not found".
+                            <li><strong>Convenience:</strong> Find suitable cloud providers faster than you can say `&quot; 404
+                                not found`&quot;.
                             </li>
-                            <li><strong>Trust:</strong> Obtain legal guarantees and SLAs worth the digital paper they're
+                            <li><strong>Trust:</strong> Obtain legal guarantees and SLAs worth the digital paper they`&apos;re
                                 written on.
                             </li>
                             <li><strong>No vendor lock-in:</strong> Easy multi-cloud deployments with consistent APIs.
