@@ -74,7 +74,7 @@ const FeaturesSection = () => {
                                 {features.map((feature, index) => (
                                     <div
                                         key={index}
-                                        className="feature-card w-80 border border-white/10 relative flex flex-col  bg-gradient-to-r from-gray-800/50 to-gray-700/50 rounded-xl p-6 shadow-lg  transition duration-300 ease-in-out cursor-help hover:bg-opacity-20 hover:shadow-xl hover:scale-105"
+                                        className="feature-card w-80 border border-white/10 relative flex flex-col  bg-gradient-to-r from-gray-900/50 to-gray-700/50 rounded-xl p-6 shadow-lg  transition duration-300 ease-in-out cursor-help hover:bg-opacity-20 hover:shadow-xl hover:scale-105"
                                     >
                                         <div className="text-5xl mb-4 text-blue-400">{feature.icon}</div>
                                         <h4 className="text-2xl font-bold mb-3">{feature.title}</h4>
