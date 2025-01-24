@@ -9,7 +9,7 @@ interface HeaderSectionProps {
 const HeaderSection: React.FC<HeaderSectionProps> = ({ title, subtitle }) => {
     return (
         <motion.div
-            className="text-center mb-12"
+            className="text-center mb-12 mt-12"
             initial={{opacity: 0, y: 20}}
             whileInView={{opacity: 1, y: 0}}
             viewport={{once: true, amount: 0.3}} // Trigger when 30% is in viewport
