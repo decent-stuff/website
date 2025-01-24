@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import HeaderSection from "@/components/ui/header";
+import {Button} from "@headlessui/react";
+import Link from "next/link";
 
 const BenefitsSection = () => {
     return (
@@ -31,10 +33,12 @@ const BenefitsSection = () => {
                             For Developers
                         </h4>
                         <ul className="list-disc list-inside text-gray-300 space-y-3 text-left">
-                            <li><strong>Convenience:</strong> Find suitable cloud providers faster than you can say &quot;404
+                            <li><strong>Convenience:</strong> Find suitable cloud providers faster than you can
+                                say &quot;404
                                 not found&quot;.
                             </li>
-                            <li><strong>Trust:</strong> Obtain legal guarantees and SLAs worth the digital paper they&apos;re
+                            <li><strong>Trust:</strong> Obtain legal guarantees and SLAs worth the digital paper
+                                they&apos;re
                                 written on.
                             </li>
                             <li><strong>No vendor lock-in:</strong> Easy multi-cloud deployments with consistent APIs.
@@ -61,6 +65,28 @@ const BenefitsSection = () => {
                                 approach.
                             </li>
                         </ul>
+                    </motion.div>
+
+                    <motion.div
+                        animate={{opacity: 1, y: 0}}
+                        initial={{opacity: 0, y: 20}}
+                        transition={{duration: 0.5, delay: 0.4}}
+                        className="mt-12"
+                    >
+                        <Button
+                            className="relative px-6 py-6 sm:px-8 md:px-10 rounded-full font-extrabold text-lg md:text-xl lg:text-2xl text-white bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300
+                          hover:brightness-110 hover:shadow-2xl hover:scale-105"
+                        >
+                            <Link
+                                href="https://github.com/orgs/decent-stuff/discussions"
+                                className="relative z-10 flex items-center gap-3"
+                            >
+                                <span>🚀 Join the Development</span>
+                            </Link>
+                            <span
+                                className="absolute inset-0 bg-white/20 rounded-full scale-0 transition-transform duration-300 group-hover:scale-100"
+                            ></span>
+                        </Button>
                     </motion.div>
                 </motion.div>
             </div>
