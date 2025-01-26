@@ -52,6 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIdentity(identity)
         setPrincipal(identity.getPrincipal())
         setIsAuthenticated(true)
+        window.location.hash = 'dashboard'
       },
     })
   }
@@ -66,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIdentity(identity)
         setPrincipal(identity.getPrincipal())
         setIsAuthenticated(true)
+        window.location.hash = 'dashboard'
       },
     })
   }
@@ -80,14 +82,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider 
-      value={{ 
-        isAuthenticated, 
-        identity, 
-        principal, 
-        loginWithII, 
-        loginWithNFID, 
-        logout 
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        identity,
+        principal,
+        loginWithII,
+        loginWithNFID,
+        logout
       }}
     >
       {children}

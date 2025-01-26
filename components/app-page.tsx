@@ -15,6 +15,10 @@ interface DashboardData {
   blocksUntilHalving: number;
   validatorCount: number;
   blockReward: number;
+  userIcpBalance?: number;
+  userCkUsdcBalance?: number;
+  userCkUsdtBalance?: number;
+  userDctBalance?: number;
 }
 
 interface PageProps {
@@ -22,7 +26,6 @@ interface PageProps {
 }
 
 export function Page({ dashboardData }: PageProps) {
-
   return (
       <>
         <div className="min-h-screen bg-animated text-white  px-6 sm:px-8 md:px-12 lg:px-22 xl:px-30">
@@ -30,7 +33,6 @@ export function Page({ dashboardData }: PageProps) {
           <HeroSection/>
 
           <main className="container mx-auto py-10">
-
             {dashboardData && (
                   <DashboardSection dashboardData={dashboardData}/>
             )}

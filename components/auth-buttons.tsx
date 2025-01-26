@@ -3,6 +3,7 @@
 import { useAuth } from '@/lib/auth-context'
 import { Button } from '@/components/ui/button'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 
 export function AuthButtons() {
   const { isAuthenticated, principal, loginWithII, logout } = useAuth()
@@ -16,7 +17,9 @@ export function AuthButtons() {
         className="flex items-center gap-4"
       >
         <span className="text-sm text-white/80">
-          Principal: {principal.toText().slice(0, 5)}...{principal.toText().slice(-5)}
+          <Link href="#dashboard" className="text-sm text-white hover:underline">
+            Logged in: {principal.toText().slice(0, 5)}
+          </Link>
         </span>
         <Button
           onClick={() => logout()}
