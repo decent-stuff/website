@@ -33,7 +33,7 @@ const dashboardItems: DashboardItem[] = [
         title: "Latest DCT Price 💎",
         key: "dctPrice",
         format: (value: number | undefined) => value ? `$${value.toFixed(4)}` : '$0.0000',
-        tooltip: "Our token is like a digital diamond - rare, valuable, and totally decent! Oh and price comes live from KongSwap.io!",
+        tooltip: "Our token is like a digital diamond: rare, valuable, and utterly decent! Plus, the price updates live from KongSwap.io!",
         showAlsoAnonymous: true,
     },
     {
