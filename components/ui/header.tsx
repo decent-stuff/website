@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { ReactNode } from "react";
 
 interface HeaderSectionProps {
     title: string;
-    subtitle: string;
+    subtitle: ReactNode;
 }
 
 const HeaderSection: React.FC<HeaderSectionProps> = ({ title, subtitle }) => {
