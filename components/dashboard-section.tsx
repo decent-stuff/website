@@ -25,7 +25,7 @@ interface DashboardItem {
     key: keyof DashboardData;
     format: (value: number | undefined) => string;
     tooltip: string;
-    showAlways?: boolean;
+    showAlsoAnonymous?: boolean;
 }
 
 const dashboardItems: DashboardItem[] = [
@@ -33,78 +33,78 @@ const dashboardItems: DashboardItem[] = [
         title: "Latest DCT Price 💎",
         key: "dctPrice",
         format: (value: number | undefined) => value ? `$${value.toFixed(4)}` : '$0.0000',
-        tooltip: "Our token is like a digital diamond - rare, valuable, and totally decent!",
-        showAlways: true,
+        tooltip: "Our token is like a digital diamond - rare, valuable, and totally decent! Oh and price comes live from KongSwap.io!",
+        showAlsoAnonymous: true,
     },
     {
         title: "Provider Squad 🤝",
         key: "providerCount",
         format: (value: number | undefined) => value ? `${value} providers` : '0 providers',
         tooltip: "Our awesome providers making the cloud decent again!",
-        showAlways: true,
+        showAlsoAnonymous: true,
     },
     {
         title: "Block Party 🎉",
         key: "totalBlocks",
         format: (value: number | undefined) => value ? value.toLocaleString() : '0',
         tooltip: "Blocks validated and counting!",
-        showAlways: true,
+        showAlsoAnonymous: true,
     },
     {
         title: "Blocks Until Next Halving ⏳",
         key: "blocksUntilHalving",
         format: (value: number | undefined) => value ? value.toLocaleString() : '0',
         tooltip: "Blocks until rewards halve!",
-        showAlways: true,
+        showAlsoAnonymous: true,
     },
     {
         title: "Current Block Validators 🛡️",
         key: "validatorCount",
         format: (value: number | undefined) => value ? `${value} validators` : '0 validators',
         tooltip: "Validators keeping us decent!",
-        showAlways: true,
+        showAlsoAnonymous: true,
     },
     {
         title: "Current Block Rewards 🎁",
         key: "blockReward",
         format: (value: number | undefined) => value ? `${value.toFixed(2)} DCT` : '0.00 DCT',
         tooltip: "DCT per validated block! With carry-over if unclaimed!",
-        showAlways: true,
+        showAlsoAnonymous: true,
     },
     {
         title: "Your ICP Stash 🏦",
         key: "userIcpBalance",
         format: (value: number | undefined) => value !== undefined ? `${value.toFixed(4)} ICP` : 'Loading...',
         tooltip: "Your Internet Computer tokens!",
-        showAlways: false,
+        showAlsoAnonymous: false,
     },
     {
         title: "USDC Treasure Chest 💰",
         key: "userCkUsdcBalance",
         format: (value: number | undefined) => value !== undefined ? `${value.toFixed(2)} ckUSDC` : 'Loading...',
         tooltip: "Your ckUSDC balance - stable as a table!",
-        showAlways: false,
+        showAlsoAnonymous: false,
     },
     {
         title: "USDT Treasure Chest 🏴‍☠️",
         key: "userCkUsdtBalance",
         format: (value: number | undefined) => value !== undefined ? `${value.toFixed(2)} ckUSDT` : 'Loading...',
         tooltip: "Your ckUSDT holdings - just as stable like a table!",
-        showAlways: false,
+        showAlsoAnonymous: false,
     },
     {
         title: "Your DCT Empire 👑",
         key: "userDctBalance",
         format: (value: number | undefined) => value !== undefined ? `${value.toFixed(2)} DCT` : 'Loading...',
         tooltip: "Your Decent Cloud Tokens - ruling the decentralized clouds!",
-        showAlways: false,
+        showAlsoAnonymous: false,
     },
 ];
 
 const DashboardSection: React.FC<DashboardSectionProps> = ({ dashboardData }) => {
     const { isAuthenticated, principal } = useAuth();
 
-    console.log("DashboardData:", dashboardData);
+    console.log("Refreshing Dashboard data:", dashboardData);
     return (
         <section id="dashboard" >
             <HeaderSection
@@ -124,7 +124,7 @@ const DashboardSection: React.FC<DashboardSectionProps> = ({ dashboardData }) =>
                 transition={{duration: 0.5}}
             >
                 {dashboardItems
-                    .filter(item => !item.showAlways || isAuthenticated)
+                    .filter(item => item.showAlsoAnonymous || isAuthenticated)
                     .map((item, index) => (
                     <div
                         key={index}

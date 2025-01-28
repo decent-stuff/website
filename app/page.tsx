@@ -3,7 +3,7 @@
 
 import { Page } from '@/components/app-page';
 import { fetchMetadata } from '../lib/icp-utils';
-import { fetchUserBalances } from '../lib/token-utils';
+import { fetchUserBalances, fetchDctPrice } from '../lib/token-utils';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth-context';
 
@@ -90,16 +90,23 @@ export default function HomePage() {
 
     const fetchData = async () => {
       try {
-        const metadata = await fetchMetadata() as Metadata;
-        let userBalances;
+        const [metadata, dctPrice] = await Promise.all([
+          fetchMetadata() as Promise<Metadata>,
+          fetchDctPrice()
+        ]);
 
+        let userBalances;
         if (isAuthenticated && identity && principal) {
           userBalances = await fetchUserBalances(identity, principal);
         }
 
         if (mounted) {
-          const data = extractDashboardData(metadata, userBalances);
-          setDashboardData(data);
+          const baseData = extractDashboardData(metadata, userBalances);
+          if (baseData) {
+            // Override the metadata price with KongSwap price
+            baseData.dctPrice = dctPrice;
+          }
+          setDashboardData(baseData);
         }
       } catch (err) {
         console.error('Error fetching data:', err);
