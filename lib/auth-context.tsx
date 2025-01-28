@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { AuthClient } from '@dfinity/auth-client'
 import { Identity } from '@dfinity/agent'
 import { Principal } from '@dfinity/principal'
+import { generateNewSeedPhrase, identityFromSeed } from './seed-auth'
 
 interface AuthContextType {
   isAuthenticated: boolean
@@ -11,7 +12,10 @@ interface AuthContextType {
   principal: Principal | null
   loginWithII: () => Promise<void>
   loginWithNFID: () => Promise<void>
+  loginWithSeedPhrase: (seedPhrase?: string) => Promise<void>
   logout: () => Promise<void>
+  showSeedPhrase: boolean
+  setShowSeedPhrase: (show: boolean) => void
 }
 
 const AuthContext = createContext<AuthContextType>({
@@ -20,7 +24,10 @@ const AuthContext = createContext<AuthContextType>({
   principal: null,
   loginWithII: async () => {},
   loginWithNFID: async () => {},
+  loginWithSeedPhrase: async () => {},
   logout: async () => {},
+  showSeedPhrase: false,
+  setShowSeedPhrase: () => {},
 })
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -28,6 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [identity, setIdentity] = useState<Identity | null>(null)
   const [principal, setPrincipal] = useState<Principal | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [showSeedPhrase, setShowSeedPhrase] = useState(false)
 
   useEffect(() => {
     AuthClient.create().then(async (client) => {
@@ -72,6 +80,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
   }
 
+  const loginWithSeedPhrase = async (existingSeedPhrase?: string) => {
+    try {
+      let seedPhrase: string
+
+      if (existingSeedPhrase) {
+        // Use existing seed phrase
+        seedPhrase = existingSeedPhrase
+      } else {
+        // Generate new seed phrase
+        seedPhrase = generateNewSeedPhrase()
+        // Store the new seed phrase securely
+        localStorage.setItem('seed_phrase', seedPhrase)
+        setShowSeedPhrase(true)
+      }
+
+      const identity = identityFromSeed(seedPhrase)
+      setIdentity(identity)
+      setPrincipal(identity.getPrincipal())
+      setIsAuthenticated(true)
+    } catch (error) {
+      console.error('Failed to login with seed phrase:', error)
+      throw error // Re-throw to handle in UI
+    }
+  }
+
   const logout = async () => {
     if (!authClient) return
 
@@ -79,6 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAuthenticated(false)
     setIdentity(null)
     setPrincipal(null)
+    localStorage.removeItem('seed_phrase')
   }
 
   return (
@@ -89,7 +123,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         principal,
         loginWithII,
         loginWithNFID,
-        logout
+        loginWithSeedPhrase,
+        logout,
+        showSeedPhrase,
+        setShowSeedPhrase
       }}
     >
       {children}
