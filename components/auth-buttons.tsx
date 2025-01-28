@@ -21,6 +21,18 @@ export function AuthButtons() {
             Logged in: {principal.toText().slice(0, 5)}
           </Link>
         </span>
+        <Link
+          href="https://www.kongswap.io/swap?from=ryjl3-tyaaa-aaaaa-aaaba-cai&to=ggi4a-wyaaa-aaaai-actqq-cai"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Button
+            variant="outline"
+            className="bg-gradient-to-r from-purple-500 to-blue-500 text-white hover:from-blue-500 hover:to-purple-500"
+          >
+            Top Up DCT
+          </Button>
+        </Link>
         <Button
           onClick={() => logout()}
           variant="outline"

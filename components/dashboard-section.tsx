@@ -128,7 +128,12 @@ const DashboardSection: React.FC<DashboardSectionProps> = ({ dashboardData }) =>
                     .map((item, index) => (
                     <div
                         key={index}
-                        className="border border-white/10 group relative flex flex-col bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-xl p-3 sm:p-4 hover:bg-white/10 hover:shadow-xl transition duration-300 ease-in-out cursor-help shadow-lg"
+                        onClick={() => {
+                            if (item.key === 'userDctBalance') {
+                                window.open('https://www.kongswap.io/swap?from=ryjl3-tyaaa-aaaaa-aaaba-cai&to=ggi4a-wyaaa-aaaai-actqq-cai', '_blank', 'noopener,noreferrer');
+                            }
+                        }}
+                        className={`border border-white/10 group relative flex flex-col bg-gradient-to-r from-gray-800/30 to-gray-700/30 rounded-xl p-3 sm:p-4 hover:bg-white/10 hover:shadow-xl transition duration-300 ease-in-out shadow-lg ${item.key === 'userDctBalance' ? 'cursor-pointer' : 'cursor-help'}`}
                     >
                         <div className="font-semibold text-center text-white/90 text-lg sm:text-xl tracking-wide">
                             {item.title}
