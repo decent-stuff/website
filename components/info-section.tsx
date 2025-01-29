@@ -35,6 +35,13 @@ const infoSections = [
     • <strong>Demand:</strong> Users need to acquire DC tokens to pay for renting services or resources<br/>
     • <strong>Supply:</strong> DC tokens can be acquired by renting services or resources, or by mining/validating<br/>
     • <strong>Governance:</strong> Platform is DAO-controlled for community-driven decisions<br/>`
+    },
+    {
+        title: "Whitepaper: Deep Dive into Decent Cloud",
+        icon: "📑",
+        content: `For those who prefer their tech docs well-done, black and white.<br/><br/>
+    Our comprehensive whitepaper details the technical architecture, tokenomics, and governance model that makes Decent Cloud truly decent.<br/><br/>
+    <a href="https://decent-stuff.github.io/website/decent-cloud-whitepaper.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 transition-colors">Download the Whitepaper →</a>`
     }
 ];
 
