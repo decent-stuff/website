@@ -68,7 +68,7 @@ export function AuthDialog() {
                   Use a Seed Phrase (Mnemonic)
                 </Button>
                 <div className="space-y-1 px-1">
-                  <h3 className="font-medium text-gray-900">Recovery Phrase</h3>
+                  <h3 className="font-medium text-gray-900">BIP39 Mnemonic Phrase</h3>
                   <p className="text-sm text-gray-600">
                     Access your account using your seed phrase. Also known as a recovery phrase or a mnemonic. Credentials are securely encrypted and stored locally, and deleted when logging out.
                   </p>
