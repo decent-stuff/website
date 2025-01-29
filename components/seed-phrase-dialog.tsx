@@ -62,7 +62,7 @@ export function SeedPhraseDialog({
       onSubmit?.(seedPhrase.trim())
       onClose()
     } catch (err) {
-      setError('Invalid seed phrase format')
+      setError(`Invalid seed phrase format: ${err}`)
     }
   }
 

@@ -68,7 +68,7 @@ export function AuthDialog() {
                   Internet Identity
                 </Button>
                 <p className="text-sm text-gray-600 px-1">
-                  Secure authentication using Internet Computer's identity service.
+                  Secure authentication using Internet Computer&apos;s identity service.
                 </p>
               </div>
 
