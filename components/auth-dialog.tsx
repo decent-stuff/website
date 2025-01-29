@@ -8,7 +8,6 @@ import { SeedPhraseDialog } from './seed-phrase-dialog'
 
 export function AuthDialog() {
   const [isOpen, setIsOpen] = useState(false)
-  const [seedDialogMode, setSeedDialogMode] = useState<'create' | 'enter'>('create')
   const { loginWithII, loginWithSeedPhrase, showSeedPhrase, setShowSeedPhrase } = useAuth()
 
   const handleInternetIdentity = async () => {
@@ -18,9 +17,7 @@ export function AuthDialog() {
 
   const handleSeedPhrase = () => {
     setIsOpen(false)
-    setSeedDialogMode('enter')
-    // Small delay to ensure mode is set before showing dialog
-    setTimeout(() => setShowSeedPhrase(true), 0)
+    setShowSeedPhrase(true)
   }
 
   const handleSeedPhraseSubmit = async (phrase: string) => {
@@ -29,15 +26,12 @@ export function AuthDialog() {
       window.location.hash = 'dashboard'
     } catch (error) {
       console.error('Login failed:', error)
-      // Keep dialog open to show error
       setShowSeedPhrase(true)
     }
   }
 
   const handleSeedPhraseDialogClose = () => {
     setShowSeedPhrase(false)
-    // Reset mode after dialog is closed
-    setTimeout(() => setSeedDialogMode('create'), 100)
   }
 
   return (
@@ -45,16 +39,9 @@ export function AuthDialog() {
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
         <Dialog.Trigger asChild>
           <Button
-            variant="outline"
-            className="relative px-6 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold text-lg shadow-lg
-              hover:from-purple-600 hover:to-blue-500 hover:scale-105 hover:text-white transition-all duration-300 ease-in-out"
+            className="px-6 py-2.5 rounded-lg bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              Log In
-            </span>
-            <span
-              className="absolute inset-0 bg-white/20 rounded-full scale-0 transition-transform duration-300 group-hover:scale-100"
-            ></span>
+            Log In
           </Button>
         </Dialog.Trigger>
 
@@ -65,20 +52,40 @@ export function AuthDialog() {
               Choose Login Method
             </Dialog.Title>
 
-            <div className="flex flex-col gap-4">
-              <Button
-                onClick={handleInternetIdentity}
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-purple-600 hover:to-blue-500"
-              >
-                Internet Identity
-              </Button>
+            <p className="text-gray-600 mb-6">
+              Choose your preferred method to access your account securely.
+            </p>
 
-              <Button
-                onClick={handleSeedPhrase}
-                className="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white hover:from-teal-600 hover:to-green-500"
-              >
-                Seed Phrase
-              </Button>
+            <div className="flex flex-col gap-6">
+              <div className="space-y-2">
+                <Button
+                  onClick={handleInternetIdentity}
+                  className="w-full bg-emerald-500 text-white hover:bg-emerald-600 h-11 flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Internet Identity
+                </Button>
+                <p className="text-sm text-gray-600 px-1">
+                  Secure authentication using Internet Computer's identity service.
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <Button
+                  onClick={handleSeedPhrase}
+                  className="w-full bg-emerald-500 text-white hover:bg-emerald-600 h-11 flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                  </svg>
+                  Seed Phrase
+                </Button>
+                <p className="text-sm text-gray-600 px-1">
+                  Access your account using your backup seed phrase.
+                </p>
+              </div>
             </div>
 
             <Dialog.Close asChild>
@@ -96,7 +103,6 @@ export function AuthDialog() {
       <SeedPhraseDialog
         isOpen={showSeedPhrase}
         onClose={handleSeedPhraseDialogClose}
-        mode={seedDialogMode}
         onSubmit={handleSeedPhraseSubmit}
       />
     </>

@@ -3,62 +3,73 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
+import { generateNewSeedPhrase, identityFromSeed } from '@/lib/seed-auth'
 
 interface SeedPhraseDialogProps {
   isOpen: boolean
   onClose: () => void
-  mode?: 'create' | 'enter'
   onSubmit?: (phrase: string) => void
 }
 
 export function SeedPhraseDialog({
   isOpen,
   onClose,
-  mode = 'create',
   onSubmit
 }: SeedPhraseDialogProps) {
   const [seedPhrase, setSeedPhrase] = useState<string>('')
-  const [hasCopied, setHasCopied] = useState(false)
   const [error, setError] = useState<string>('')
+  const [isGenerating, setIsGenerating] = useState(false)
 
   useEffect(() => {
-    if (isOpen && mode === 'create') {
-      const phrase = localStorage.getItem('seed_phrase')
-      if (phrase) {
-        setSeedPhrase(phrase)
-      }
-    } else {
+    if (!isOpen) {
       setSeedPhrase('')
       setError('')
+      setIsGenerating(false)
     }
-  }, [isOpen, mode])
+  }, [isOpen])
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(seedPhrase)
-    setHasCopied(true)
-    setTimeout(() => setHasCopied(false), 2000)
+  const handleGenerateNew = () => {
+    const newPhrase = generateNewSeedPhrase()
+    setSeedPhrase(newPhrase)
+    setIsGenerating(true)
+    setError('')
   }
 
   const handleConfirm = () => {
-    if (mode === 'enter') {
-      if (!seedPhrase.trim()) {
-        setError('Please enter your seed phrase')
-        return
-      }
-      // Basic validation - check if it's a valid mnemonic (12 or 24 words)
-      const wordCount = seedPhrase.trim().split(/\s+/).length
-      if (wordCount !== 12 && wordCount !== 24) {
-        setError('Invalid seed phrase. Must be 12 or 24 words')
-        return
-      }
-      onSubmit?.(seedPhrase.trim())
+    if (!seedPhrase.trim()) {
+      setError('Please enter your seed phrase')
+      return
     }
-    onClose()
+
+    // Basic validation - check if it's a valid mnemonic (12 or 24 words)
+    const wordCount = seedPhrase.trim().split(/\s+/).length
+    if (wordCount !== 12 && wordCount !== 24) {
+      setError('Invalid seed phrase. Must be 12 or 24 words')
+      return
+    }
+
+    try {
+      // Generate and store the identity
+      const identity = identityFromSeed(seedPhrase.trim())
+      // Store the DER-encoded private key
+      localStorage.setItem('identity_key', JSON.stringify(Array.from(new Uint8Array(identity.getKeyPair().secretKey))))
+
+      if (isGenerating) {
+        // If this was a new generation, store the seed phrase for recovery
+        localStorage.setItem('seed_phrase', seedPhrase.trim())
+      }
+
+      onSubmit?.(seedPhrase.trim())
+      onClose()
+    } catch (err) {
+      setError('Invalid seed phrase format')
+    }
   }
 
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSeedPhrase(e.target.value)
     setError('')
+    setIsGenerating(false)
   }
 
   return (
@@ -69,70 +80,72 @@ export function SeedPhraseDialog({
           className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-6 shadow-xl w-[90vw] max-w-md"
           aria-describedby="dialog-description"
         >
-          <Dialog.Title className="text-xl font-bold mb-4">
-            {mode === 'create' ? 'Save Your Seed Phrase' : 'Enter Seed Phrase'}
+          <Dialog.Title className="text-xl font-semibold mb-4 text-gray-800">
+            Seed Phrase Authentication
           </Dialog.Title>
 
           <div id="dialog-description" className="space-y-4">
-            {mode === 'create' ? (
+            <div className="flex gap-4 mb-6">
+              <Button
+                onClick={handleGenerateNew}
+                className="flex-1 bg-blue-500 text-white hover:bg-blue-600"
+              >
+                Generate New
+              </Button>
+              <Button
+                onClick={() => {
+                  setSeedPhrase('')
+                  setIsGenerating(false)
+                }}
+                className="flex-1 bg-gray-500 text-white hover:bg-gray-600"
+                disabled={!seedPhrase}
+              >
+                Enter Existing
+              </Button>
+            </div>
+
+            {isGenerating ? (
               <>
-                <p className="text-sm text-gray-600">
-                  This is your seed phrase. Write it down and keep it safe. You&apos;ll need it to recover your account.
+                <p className="text-gray-600">
+                  This is your new seed phrase. Write it down and keep it safe. You&apos;ll need it to recover your account.
                 </p>
 
-                <div className="bg-gray-100 p-4 rounded-lg break-all">
-                  <p className="text-sm font-mono">{seedPhrase}</p>
+                <div className="bg-gray-50 p-4 rounded break-all">
+                  <p className="font-mono text-gray-800">{seedPhrase}</p>
                 </div>
 
-                <div className="flex gap-4">
-                  <Button
-                    onClick={handleCopy}
-                    className="flex-1 bg-blue-500 text-white hover:bg-blue-600"
-                  >
-                    {hasCopied ? 'Copied!' : 'Copy to Clipboard'}
-                  </Button>
+                <div className="bg-red-50 p-4 rounded">
+                  <p className="text-sm text-red-600">
+                    If you lose this seed phrase, you will permanently lose access to your account.
+                  </p>
                 </div>
-
-                <div className="mt-6">
-                  <Button
-                    onClick={handleConfirm}
-                    className="w-full bg-green-500 text-white hover:bg-green-600"
-                  >
-                    I&apos;ve Saved My Seed Phrase
-                  </Button>
-                </div>
-
-                <p className="mt-4 text-xs text-red-500">
-                  Warning: If you lose this seed phrase, you will permanently lose access to your account.
-                </p>
               </>
             ) : (
-              <>
-                <p className="text-sm text-gray-600">
-                  Enter your seed phrase to access your account.
-                </p>
-
-                <textarea
-                  value={seedPhrase}
-                  onChange={handleInput}
-                  className="w-full h-32 p-4 border rounded-lg font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Enter your 12 or 24 word seed phrase..."
-                />
-
-                {error && (
-                  <p className="text-sm text-red-500">{error}</p>
-                )}
-
-                <div className="mt-6">
-                  <Button
-                    onClick={handleConfirm}
-                    className="w-full bg-green-500 text-white hover:bg-green-600"
-                  >
-                    Access Account
-                  </Button>
-                </div>
-              </>
+              <p className="text-gray-600">
+                Enter your existing seed phrase to access your account.
+              </p>
             )}
+
+            {!isGenerating && (
+              <textarea
+                value={seedPhrase}
+                onChange={handleInput}
+                className="w-full h-32 p-4 border rounded font-mono text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+                placeholder="Enter your 12 or 24 word seed phrase..."
+              />
+            )}
+
+            {error && (
+              <p className="text-sm text-red-600">{error}</p>
+            )}
+
+            <Button
+              onClick={handleConfirm}
+              className="w-full bg-emerald-500 text-white hover:bg-emerald-600 h-11"
+              disabled={!seedPhrase.trim()}
+            >
+              {isGenerating ? "I've Saved My Seed Phrase" : "Access Account"}
+            </Button>
           </div>
 
           <Dialog.Close asChild>
