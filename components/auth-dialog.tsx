@@ -88,7 +88,7 @@ export function AuthDialog() {
                 <div className="space-y-1 px-1">
                   <h3 className="font-medium text-gray-900">Internet Identity</h3>
                   <p className="text-sm text-gray-600">
-                    The most secure way to access your account. Uses Internet Computer&apos;s authentication service with advanced security features.
+                    The most secure way to access your account. Uses Internet Computer&apos;s authentication service with advanced security features. Your generated Principal will be different than your seed phrase though, and there is no way to change it.
                   </p>
                 </div>
               </div>
