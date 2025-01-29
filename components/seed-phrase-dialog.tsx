@@ -97,8 +97,8 @@ export function SeedPhraseDialog({
                   setSeedPhrase('')
                   setIsGenerating(false)
                 }}
-                className="flex-1 bg-gray-500 text-white hover:bg-gray-600"
-                disabled={!seedPhrase}
+                className="flex-1 bg-gray-400 text-white hover:bg-gray-600"
+                disabled={!isGenerating}
               >
                 Enter Existing
               </Button>
@@ -114,15 +114,17 @@ export function SeedPhraseDialog({
                   <p className="font-mono text-gray-800">{seedPhrase}</p>
                 </div>
 
-                <div className="bg-red-50 p-4 rounded">
-                  <p className="text-sm text-red-600">
-                    If you lose this seed phrase, you will permanently lose access to your account.
+                <div className="bg-red-50 p-4 rounded border-2 border-red-500">
+                  <p className="text-sm">
+                    <span className="font-bold text-red-600">
+                      ⚠️ WARNING! ⚠️ If you lose this seed phrase, you will <span className="underline">PERMANENTLY LOSE ACCESS</span> to your account and all associated funds. This is your <span className="underline">ONLY</span> recovery key. Write it down and keep it safe! 🔒
+                    </span>
                   </p>
                 </div>
               </>
             ) : (
               <p className="text-gray-600">
-                Enter your existing seed phrase to access your account.
+                Enter an existing seed phrase, same as in the CLI, to access your account.
               </p>
             )}
 
