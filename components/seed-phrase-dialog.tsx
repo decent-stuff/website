@@ -75,20 +75,20 @@ export function SeedPhraseDialog({
   return (
     <Dialog.Root open={isOpen} onOpenChange={onClose}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
+        <Dialog.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50" />
         <Dialog.Content
-          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-6 shadow-xl w-[90vw] max-w-md"
+          className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-4 sm:p-6 shadow-xl w-[95vw] sm:w-[90vw] max-w-md z-50"
           aria-describedby="dialog-description"
         >
-          <Dialog.Title className="text-xl font-semibold mb-4 text-gray-800">
+          <Dialog.Title className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-gray-800">
             Seed Phrase Authentication
           </Dialog.Title>
 
-          <div id="dialog-description" className="space-y-4">
-            <div className="flex gap-4 mb-6">
+          <div id="dialog-description" className="space-y-3 sm:space-y-4">
+            <div className="flex gap-2 sm:gap-4 mb-4 sm:mb-6">
               <Button
                 onClick={handleGenerateNew}
-                className="flex-1 bg-blue-500 text-white hover:bg-blue-600"
+                className="flex-1 bg-blue-500 text-white hover:bg-blue-600 h-12 sm:h-10 text-sm sm:text-base"
               >
                 Generate New
               </Button>
@@ -97,7 +97,7 @@ export function SeedPhraseDialog({
                   setSeedPhrase('')
                   setIsGenerating(false)
                 }}
-                className="flex-1 bg-gray-400 text-white hover:bg-gray-600"
+                className="flex-1 bg-gray-400 text-white hover:bg-gray-600 h-12 sm:h-10 text-sm sm:text-base"
                 disabled={!isGenerating}
               >
                 Enter Existing
@@ -106,16 +106,16 @@ export function SeedPhraseDialog({
 
             {isGenerating ? (
               <>
-                <p className="text-gray-600">
+                <p className="text-sm sm:text-base text-gray-600">
                   This is your new seed phrase. Write it down and keep it safe. You&apos;ll need it to recover your account.
                 </p>
 
-                <div className="bg-gray-50 p-4 rounded break-all">
-                  <p className="font-mono text-gray-800">{seedPhrase}</p>
+                <div className="bg-gray-50 p-3 sm:p-4 rounded break-all">
+                  <p className="font-mono text-sm sm:text-base text-gray-800">{seedPhrase}</p>
                 </div>
 
-                <div className="bg-red-50 p-4 rounded border-2 border-red-500">
-                  <p className="text-sm">
+                <div className="bg-red-50 p-3 sm:p-4 rounded border-2 border-red-500">
+                  <p className="text-xs sm:text-sm">
                     <span className="font-bold text-red-600">
                       ⚠️ WARNING! ⚠️ If you lose this seed phrase, you will <span className="underline">PERMANENTLY LOSE ACCESS</span> to your account and all associated funds. This is your <span className="underline">ONLY</span> recovery key. Write it down and keep it safe! 🔒
                     </span>
@@ -123,7 +123,7 @@ export function SeedPhraseDialog({
                 </div>
               </>
             ) : (
-              <p className="text-gray-600">
+              <p className="text-sm sm:text-base text-gray-600">
                 Enter an existing seed phrase, same as in the CLI, to access your account.
               </p>
             )}
@@ -132,18 +132,18 @@ export function SeedPhraseDialog({
               <textarea
                 value={seedPhrase}
                 onChange={handleInput}
-                className="w-full h-32 p-4 border rounded font-mono text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+                className="w-full h-28 sm:h-32 p-3 sm:p-4 border rounded font-mono text-sm sm:text-base text-gray-800 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
                 placeholder="Enter your 12 or 24 word seed phrase..."
               />
             )}
 
             {error && (
-              <p className="text-sm text-red-600">{error}</p>
+              <p className="text-xs sm:text-sm text-red-600">{error}</p>
             )}
 
             <Button
               onClick={handleConfirm}
-              className="w-full bg-emerald-500 text-white hover:bg-emerald-600 h-11"
+              className="w-full bg-emerald-500 text-white hover:bg-emerald-600 h-14 sm:h-12 text-sm sm:text-base"
               disabled={!seedPhrase.trim()}
             >
               {isGenerating ? "I've Saved My Seed Phrase" : "Access Account"}
@@ -152,10 +152,12 @@ export function SeedPhraseDialog({
 
           <Dialog.Close asChild>
             <button
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              className="absolute top-3 sm:top-4 right-3 sm:right-4 p-2 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200 touch-manipulation"
               aria-label="Close"
             >
-              ✕
+              <svg className="w-6 h-6 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
           </Dialog.Close>
         </Dialog.Content>

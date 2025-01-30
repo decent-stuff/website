@@ -13,9 +13,9 @@ const Navbar = () => {
     };
 
     return (
-        <header className="fixed top-0 left-0 w-full bg-gradient-to-b from-black/80 to-transparent backdrop-blur-lg z-50 py-4 px-6 sm:px-8 md:px-12 lg:px-24 xl:px-36 flex justify-between items-center transition-all duration-300">
+        <header className="fixed top-0 left-0 w-full bg-transparent md:bg-gradient-to-b md:from-black/80 md:to-transparent md:backdrop-blur-lg z-50 py-4 px-6 sm:px-8 md:px-12 lg:px-24 xl:px-36 flex justify-between items-center transition-all duration-300">
             {/* Logo */}
-            <h1 className="whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-white tracking-wide">
+            <h1 className="hidden md:block whitespace-nowrap text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-white tracking-wide">
                 Decent Cloud
             </h1>
 
@@ -73,7 +73,7 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div
-                className={`fixed top-12 right-0 bg-black/90 backdrop-blur-md w-full h-screen md:hidden flex flex-col items-center gap-6 py-16 text-white text-xl transition-all duration-300 ${
+                className={`fixed top-12 right-0 bg-black/90 backdrop-blur-md w-full h-screen md:hidden flex flex-col items-center gap-6 py-16 text-white text-xl transition-all duration-300 z-40 ${
                     isMenuOpen ? 'block' : 'hidden'
                 }`}
             >
