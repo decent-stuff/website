@@ -144,51 +144,108 @@ export const fetchDctPrice = async (): Promise<number> => {
 };
 
 interface TokenResponse {
-    tokens: KongSwapTokenDataRaw[];
+    items: KongSwapTokenDataRaw[];
+    total_pages: number;
+    total_count: number;
+    page: number;
+    limit: number;
 }
 
-export const fetchTokensByCanisterId = async (canisterIds: string[]): Promise<Token[]> => {
+const fetchTokenPage = async (canisterIds: string[], page: number): Promise<TokenResponse> => {
     const response = await fetch("https://api.kongswap.io/api/tokens/by_canister", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ canister_ids: canisterIds })
+        body: JSON.stringify({
+            canister_ids: canisterIds,
+            page,
+            limit: 100 // Maximum limit to minimize number of requests
+        })
     });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json() as TokenResponse;
-    return data.tokens.map(parseTokenData);
+
+    if (!data.items || !Array.isArray(data.items)) {
+        throw new Error('Unexpected API response format');
+    }
+
+    return data;
+};
+
+export const fetchTokensByCanisterId = async (canisterIds: string[]): Promise<Token[]> => {
+    try {
+        // Fetch first page to get total pages
+        const firstPage = await fetchTokenPage(canisterIds, 1);
+        let allItems = [...firstPage.items];
+
+        // Fetch remaining pages if any
+        const remainingPages = Array.from(
+            { length: firstPage.total_pages - 1 },
+            (_, i) => i + 2
+        );
+
+        if (remainingPages.length > 0) {
+            const remainingResults = await Promise.all(
+                remainingPages.map(page => fetchTokenPage(canisterIds, page))
+            );
+
+            // Combine all items
+            remainingResults.forEach(result => {
+                allItems = allItems.concat(result.items);
+            });
+        }
+
+        return allItems.map(parseTokenData);
+    } catch (error) {
+        console.error('Error fetching tokens:', error);
+        return [];
+    }
 };
 
 // Example response
 // {
-//     "tokens": [
+//     "items": [
 //       {
 //         "address": null,
 //         "canister_id": "ggi4a-wyaaa-aaaai-actqq-cai",
 //         "decimals": 9,
 //         "fee": 0.001,
-//         "fee_fixed": "1_000_000",
+//         "fee_fixed": "1000000",
+//         "has_custom_logo": false,
 //         "icrc1": true,
 //         "icrc2": false,
 //         "icrc3": false,
 //         "is_removed": false,
-//         "logo_url": "/static/images/tokens/258-logo.svg",
+//         "logo_updated_at": "2025-01-31T08:58:31.720571",
+//         "logo_url": "https://apibucket.nyc3.digitaloceanspaces.com/token_logos/258-logo.svg",
 //         "metrics": {
-//           "market_cap": "187640.67000000",
-//           "price": "0.00893527",
+//           "market_cap": "26986890.00000000",
+//           "previous_price": "1.3055444",
+//           "price": "0.24427591",
 //           "price_change_24h": null,
+//           "token_id": 258,
 //           "total_supply": "21000000000000000",
-//           "tvl": "0.17733320",
-//           "updated_at": "2025-01-28T09:25:25.487983+00:00",
-//           "volume_24h": "0"
+//           "tvl": "459.7068663748780912",
+//           "updated_at": "2025-01-31T09:06:41.888646",
+//           "volume_24h": "66.533782483371756"
 //         },
 //         "name": "Decent Cloud",
 //         "symbol": "DC",
 //         "token_id": 258,
-//         "token_type": "IC"
+//         "token_type": "Ic"
 //       }
-//     ]
-// }
+//     ],
+//     "total_pages": 1,
+//     "total_count": 1,
+//     "page": 1,
+//     "limit": 100
+//   }
+
 
 
 interface KongSwapTokenDataRaw {
@@ -197,15 +254,19 @@ interface KongSwapTokenDataRaw {
     decimals?: number;
     fee?: number;
     fee_fixed?: string;
+    has_custom_logo?: boolean;
     icrc1?: boolean;
     icrc2?: boolean;
     icrc3?: boolean;
     is_removed?: boolean;
+    logo_updated_at?: string;
     logo_url?: string;
     metrics?: {
         market_cap?: string;
+        previous_price?: string;
         price?: string;
         price_change_24h?: string | null;
+        token_id?: number;
         total_supply?: string;
         tvl?: string;
         updated_at?: string;
@@ -230,6 +291,13 @@ const parseTokenData = (token: KongSwapTokenDataRaw): Token => {
         return parseFloat(value.replaceAll(",", "")) || 0;
     };
 
+    // Handle logo URL based on has_custom_logo flag
+    const getLogo = (logoUrl: string | undefined): string => {
+        if (!logoUrl) return "";
+        if (logoUrl.startsWith('http')) return logoUrl;
+        return `https://api.kongswap.io${logoUrl.startsWith('/') ? '' : '/'}${logoUrl}`;
+    };
+
     return {
         metrics: {
             price: parseMetricValue(token?.metrics?.price),
@@ -240,13 +308,13 @@ const parseTokenData = (token: KongSwapTokenDataRaw): Token => {
             updated_at: token?.metrics?.updated_at,
             price_change_24h: parsePriceChange(token?.metrics?.price_change_24h)
         },
-        logo_url: token?.logo_url ? (token.logo_url.startsWith('http') ? token.logo_url : `https://api.kongswap.io${token.logo_url.startsWith('/') ? '' : '/'}${token.logo_url}`) : "",
+        logo_url: getLogo(token?.logo_url),
         address: token.address || token.canister_id || "",
         fee: Number(token.fee || 0),
         fee_fixed: BigInt(token?.fee_fixed?.replaceAll("_", "") || "0").toString(),
         token: token.token_type || '',
         token_type: token.token_type || '',
-        chain: token.token_type === 'IC' ? 'ICP' : token.chain || '',
+        chain: token.token_type?.toUpperCase() === 'IC' ? 'ICP' : token.chain || '',
         pool_symbol: token.pool_symbol || "Pool not found",
         pools: [],
     };
