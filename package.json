@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "download-images": "node scripts/download-images.mjs",
-    "prepare": "npm run download-images"
+    "prepare": ""
   },
   "dependencies": {
     "@dfinity/agent": "^2.2.0",
