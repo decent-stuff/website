@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faDatabase } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { AuthButtons } from "@/components/auth-buttons"
 
@@ -48,6 +48,15 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Link
+                            href="/ledger"
+                            className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
+                        >
+                            <FontAwesomeIcon icon={faDatabase} className="text-sm"/>
+                            <span>Ledger</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
                             href="https://github.com/decent-stuff/decent-cloud"
                             className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
                             target="_blank"
@@ -85,6 +94,9 @@ const Navbar = () => {
                 </Link>
                 <Link href="#benefits" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
                     Benefits
+                </Link>
+                <Link href="/ledger" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
+                    Ledger
                 </Link>
                 <Link
                     href="https://github.com/decent-stuff/decent-cloud"

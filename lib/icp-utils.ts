@@ -14,7 +14,7 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function getAgent() {
   if (!agent) {
     try {
-      agent = new HttpAgent({ 
+      agent = await HttpAgent.create({
         host: 'https://icp-api.io',
       });
     } catch (error) {
@@ -27,28 +27,28 @@ async function getAgent() {
 
 export async function fetchMetadata() {
   let lastError;
-  
+
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
       const currentAgent = await getAgent();
       await currentAgent.fetchRootKey();
-      
+
       const canister = Actor.createActor(metadataIdl, {
         agent: currentAgent,
         canisterId,
       });
-      
+
       const metadata = await canister.metadata();
       return metadata;
     } catch (error) {
       lastError = error;
-      
+
       if (attempt < MAX_RETRIES - 1) {
         const delay = RETRY_DELAY * Math.pow(2, attempt);
         await sleep(delay);
       }
     }
   }
-  
+
   throw lastError;
 }

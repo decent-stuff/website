@@ -32,7 +32,7 @@ interface ICRC1Actor {
 }
 
 const createTokenActor = async (canisterId: string, identity: Identity): Promise<ICRC1Actor> => {
-    const agent = new HttpAgent({
+    const agent = await HttpAgent.create({
         host: 'https://icp-api.io',
         identity
     });
