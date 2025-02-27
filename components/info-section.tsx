@@ -15,6 +15,20 @@ const infoSections = [
     • Community-driven evolution`
     },
     {
+        title: "How Reputation Works",
+        icon: "⭐",
+        content: `Our reputation system builds trust through real-world transactions:<br/><br/>
+    <strong>Earning Reputation:</strong><br/>
+    • Reputation is earned through successful transactions between developers and node providers<br/>
+    • When a developer pays a provider, both parties gain a small reputation boost<br/>
+    • All reputation changes are recorded transparently on the blockchain<br/><br/>
+    <strong>Why It Matters:</strong><br/>
+    • Reputation is a valuable asset that takes time to build<br/>
+    • Disputes cost reputation for both parties, discouraging frivolous claims<br/>
+    • The system promotes high standards of conduct and service quality<br/>
+    • Blockchain ensures tamper-resistance and transparent verification`
+    },
+    {
         title: "How does mining or validation work?",
         icon: "⛏️",
         content: `Anyone can be a validator! Just follow these steps:<br/>
