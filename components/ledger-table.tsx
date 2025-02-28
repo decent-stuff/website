@@ -41,8 +41,12 @@ export function LedgerTable({ entries, isLoading, error }: LedgerTableProps) {
   // If no entries are provided, fetch them from the ledger service
   useEffect(() => {
     if (!entries) {
+      let isMounted = true;
+
       const fetchEntries = async () => {
         try {
+          if (!isMounted) return;
+
           setLocalIsLoading(true);
           setLocalError(undefined);
 
@@ -54,15 +58,30 @@ export function LedgerTable({ entries, isLoading, error }: LedgerTableProps) {
 
           // Get all entries from the database
           const allEntries = await ledgerService.getAllEntries();
-          setLocalEntries(allEntries);
+
+          if (isMounted) {
+            setLocalEntries(allEntries);
+          }
         } catch (err) {
-          setLocalError(err instanceof Error ? err.message : 'Failed to fetch ledger entries');
+          if (isMounted) {
+            setLocalError(err instanceof Error ? err.message : 'Failed to fetch ledger entries');
+          }
         } finally {
-          setLocalIsLoading(false);
+          if (isMounted) {
+            setLocalIsLoading(false);
+          }
         }
       };
 
-      fetchEntries();
+      fetchEntries().catch(err => {
+        if (isMounted) {
+          console.error("Error fetching ledger entries:", err);
+        }
+      });
+
+      return () => {
+        isMounted = false;
+      };
     }
   }, [entries]);
 

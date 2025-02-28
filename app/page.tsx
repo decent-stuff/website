@@ -114,10 +114,20 @@ export default function HomePage() {
     };
 
     // Immediate initial fetch
-    fetchData();
+    fetchData().catch(err => {
+      if (mounted) {
+        console.error('Error in initial data fetch:', err);
+      }
+    });
 
     // Set up periodic refresh every 10 seconds
-    const intervalId = setInterval(fetchData, 10000);
+    const intervalId = setInterval(() => {
+      fetchData().catch(err => {
+        if (mounted) {
+          console.error('Error in interval data fetch:', err);
+        }
+      });
+    }, 10000);
 
     // Cleanup interval and prevent state updates if unmounted
     return () => {

@@ -120,8 +120,14 @@ const DashboardSection: React.FC<DashboardSectionProps> = ({ dashboardData }) =>
                                 <button
                                     onClick={() => {
                                         if (principal) {
-                                            navigator.clipboard.writeText(principal.toString());
-                                            // Could add a toast notification here in the future
+                                            navigator.clipboard.writeText(principal.toString())
+                                                .then(() => {
+                                                    // Could add a toast notification here in the future
+                                                    console.log("Principal ID copied to clipboard");
+                                                })
+                                                .catch(err => {
+                                                    console.error("Failed to copy principal ID:", err);
+                                                });
                                         }
                                     }}
                                     className="bg-white/10 hover:bg-white/20 text-white/80 hover:text-white p-1.5 rounded-lg transition-colors"

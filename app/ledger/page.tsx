@@ -17,10 +17,18 @@ export default function LedgerPage() {
 
   // Fetch ledger entries on component mount
   useEffect(() => {
-    fetchEntries();
+    let isMounted = true;
+
+    fetchEntries().catch(err => {
+      if (isMounted) {
+        console.error("Error fetching entries:", err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch ledger entries');
+      }
+    });
 
     // Clean up on unmount
     return () => {
+      isMounted = false;
       ledgerService.stopPolling();
     };
   }, []);
@@ -48,25 +56,39 @@ export default function LedgerPage() {
   };
 
   // Toggle polling
-  const togglePolling = () => {
+  const togglePolling = async () => {
     if (isPolling) {
       ledgerService.stopPolling();
       setIsPolling(false);
     } else {
-      ledgerService.startPolling(pollingFrequency);
-      setIsPolling(true);
+      setIsLoading(true);
+      try {
+        await ledgerService.startPolling(pollingFrequency);
+        setIsPolling(true);
+      } catch (err) {
+        console.error("Error starting polling:", err);
+        setError(err instanceof Error ? err.message : 'Failed to start polling');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
   // Handle polling frequency change
-  const handleFrequencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFrequencyChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const frequency = parseInt(e.target.value, 10);
     setPollingFrequency(frequency);
 
     // If currently polling, restart with new frequency
     if (isPolling) {
       ledgerService.stopPolling();
-      ledgerService.startPolling(frequency);
+      try {
+        await ledgerService.startPolling(frequency);
+      } catch (err) {
+        console.error("Error restarting polling with new frequency:", err);
+        setError(err instanceof Error ? err.message : 'Failed to restart polling');
+        setIsPolling(false);
+      }
     }
   };
 

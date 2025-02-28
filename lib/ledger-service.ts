@@ -51,7 +51,7 @@ class LedgerService {
     }
 
     // Start polling for ledger updates
-    startPolling(frequency?: number): void {
+    async startPolling(frequency?: number): Promise<void> {
         if (frequency) {
             this.pollingFrequency = frequency;
         }
@@ -61,13 +61,23 @@ class LedgerService {
             clearInterval(this.pollingInterval);
         }
 
+        // Fetch immediately on start and await completion
+        try {
+            await this.fetchAndStoreLatestEntries();
+        } catch (error) {
+            console.error('Initial fetch failed:', error);
+            // Continue with polling even if initial fetch fails
+        }
+
         // Set up new polling interval
         this.pollingInterval = setInterval(async () => {
-            await this.fetchAndStoreLatestEntries();
+            try {
+                await this.fetchAndStoreLatestEntries();
+            } catch (error) {
+                console.error('Polling fetch failed:', error);
+                // Continue polling even if a fetch fails
+            }
         }, this.pollingFrequency);
-
-        // Fetch immediately on start
-        this.fetchAndStoreLatestEntries();
     }
 
     // Stop polling for ledger updates
