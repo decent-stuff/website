@@ -11,7 +11,7 @@ interface BlockEntry {
 }
 
 interface BlockHeader {
-    version: number;
+    block_version: number;
     jump_bytes_next: number;
     parent_block_hash: string;
     offset: number;
@@ -139,7 +139,7 @@ class LedgerService {
                                 key: blockEntry.key,
                                 value: blockEntry.value,
                                 description: blockEntry.description || '', // Provide default empty string for description
-                                blockVersion: blockHeader.version,
+                                blockVersion: blockHeader.block_version,
                                 blockSize: blockHeader.jump_bytes_next,
                                 parentBlockHash: blockHeader.parent_block_hash,
                                 blockOffset: blockHeader.offset,

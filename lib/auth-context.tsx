@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [showSeedPhrase, setShowSeedPhrase] = useState(false)
 
   useEffect(() => {
-    AuthClient.create().then(async (client) => {
+    void AuthClient.create().then(async (client) => {
       setAuthClient(client)
       const isAuthenticated = await client.isAuthenticated()
       if (isAuthenticated) {
