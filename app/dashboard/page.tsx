@@ -5,6 +5,8 @@ import { useAuth } from '@/lib/auth-context';
 import HeaderSection from '@/components/ui/header';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { fetchMetadata } from '@/lib/icp-utils';
+import { fetchUserBalances, fetchDctPrice } from '@/lib/token-utils';
 
 interface DashboardData {
   dctPrice: number;
@@ -101,24 +103,89 @@ const dashboardItems: DashboardItem[] = [
   },
 ];
 
-// Mock data for demonstration purposes
-const mockDashboardData: DashboardData = {
-  dctPrice: 0.0123,
-  providerCount: 42,
-  totalBlocks: 12345,
-  blocksUntilHalving: 5000,
-  validatorCount: 15,
-  blockReward: 100,
-  userIcpBalance: 5.4321,
-  userCkUsdcBalance: 100.50,
-  userCkUsdtBalance: 200.75,
-  userDctBalance: 1000.00,
-};
+// Type definitions for metadata
+type MetadataValue =
+  | { Nat: bigint }
+  | { Int: bigint }
+  | { Text: string }
+  | { Blob: Uint8Array };
+
+type Metadata = Array<[string, MetadataValue]>;
+
+interface UserBalances {
+  icp: number;
+  ckUsdc: number;
+  ckUsdt: number;
+  dct: number;
+}
+
+// Function to extract dashboard data from metadata
+function extractDashboardData(metadata: Metadata | null, userBalances?: UserBalances): DashboardData {
+  const defaultData: DashboardData = {
+    dctPrice: 0,
+    providerCount: 0,
+    totalBlocks: 0,
+    blocksUntilHalving: 0,
+    validatorCount: 0,
+    blockReward: 0,
+  };
+
+  if (!metadata) return defaultData;
+
+  const getValue = (key: string): string | number | null => {
+    const entry = metadata.find(([k]) => k === key);
+    if (!entry) return null;
+
+    const value = entry[1];
+    if ('Nat' in value) {
+      const num = Number(value.Nat);
+      if (key === 'ledger:token_value_in_usd_e6') {
+        return num / 1_000_000; // Convert from e6 to actual USD value
+      }
+      if (key === 'ledger:current_block_rewards_e9s') {
+        return num / 1_000_000_000; // Convert from e9s to DCT
+      }
+      return num;
+    }
+    if ('Int' in value) return Number(value.Int);
+    if ('Text' in value) return value.Text;
+    return null;
+  };
+
+  const data = {
+    dctPrice: getValue('ledger:token_value_in_usd_e6') as number || 0,
+    providerCount: getValue('ledger:total_providers') as number || 0,
+    totalBlocks: getValue('ledger:num_blocks') as number || 0,
+    blocksUntilHalving: getValue('ledger:blocks_until_next_halving') as number || 0,
+    validatorCount: getValue('ledger:current_block_validators') as number || 0,
+    blockReward: getValue('ledger:current_block_rewards_e9s') as number || 0,
+  };
+
+  // Add user balances if available
+  if (userBalances) {
+    return {
+      ...data,
+      userIcpBalance: userBalances.icp,
+      userCkUsdcBalance: userBalances.ckUsdc,
+      userCkUsdtBalance: userBalances.ckUsdt,
+      userDctBalance: userBalances.dct,
+    };
+  }
+
+  return data;
+}
 
 export default function DashboardPage() {
-  const { isAuthenticated, principal } = useAuth();
+  const { isAuthenticated, identity, principal } = useAuth();
   const router = useRouter();
-  const [dashboardData] = useState<DashboardData>(mockDashboardData);
+  const [dashboardData, setDashboardData] = useState<DashboardData>({
+    dctPrice: 0,
+    providerCount: 0,
+    totalBlocks: 0,
+    blocksUntilHalving: 0,
+    validatorCount: 0,
+    blockReward: 0,
+  });
   const [isLoading, setIsLoading] = useState(true);
 
   // Check authentication status
@@ -137,12 +204,58 @@ export default function DashboardPage() {
     return () => clearTimeout(timer);
   }, [isAuthenticated, router]);
 
-  // In a real application, you would fetch the dashboard data here
+  // Fetch dashboard data
   useEffect(() => {
-    // This would be replaced with an actual API call
-    console.log("Fetching dashboard data...");
-    // For now, we're using mock data
-  }, []);
+    let mounted = true;
+
+    const fetchData = async () => {
+      try {
+        console.log("Fetching dashboard data...");
+        const [metadata, dctPrice] = await Promise.all([
+          fetchMetadata() as Promise<Metadata>,
+          fetchDctPrice()
+        ]);
+
+        let userBalances;
+        if (isAuthenticated && identity && principal) {
+          userBalances = await fetchUserBalances(identity, principal);
+        }
+
+        if (mounted) {
+          const baseData = extractDashboardData(metadata, userBalances);
+          if (baseData) {
+            // Override the metadata price with KongSwap price
+            baseData.dctPrice = dctPrice;
+          }
+          setDashboardData(baseData);
+        }
+      } catch (err) {
+        console.error('Error fetching dashboard data:', err);
+      }
+    };
+
+    // Immediate initial fetch
+    fetchData().catch(err => {
+      if (mounted) {
+        console.error('Error in initial data fetch:', err);
+      }
+    });
+
+    // Set up periodic refresh every 10 seconds
+    const intervalId = setInterval(() => {
+      fetchData().catch(err => {
+        if (mounted) {
+          console.error('Error in interval data fetch:', err);
+        }
+      });
+    }, 10000);
+
+    // Cleanup interval and prevent state updates if unmounted
+    return () => {
+      mounted = false;
+      clearInterval(intervalId);
+    };
+  }, [isAuthenticated, identity, principal]);
 
   if (isLoading) {
     return (
