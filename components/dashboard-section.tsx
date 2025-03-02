@@ -65,7 +65,7 @@ const dashboardItems: DashboardItem[] = [
         showAlsoAnonymous: true,
     },
     {
-        title: "Current Block Rewards 🎁",
+        title: "Accumulated Block Rewards 🎁",
         key: "blockReward",
         format: (value: number | undefined) => value ? `${value.toFixed(2)} DCT` : '0.00 DCT',
         tooltip: "DCT per validated block! With carry-over if unclaimed!",
