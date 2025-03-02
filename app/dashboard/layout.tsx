@@ -89,7 +89,7 @@ export default function DashboardLayout({
                 } transition-colors`}
               >
                 <FontAwesomeIcon icon={faTrophy} />
-                <span>Validators</span>
+                <span>Validate</span>
               </Link>
             </div>
           </div>
