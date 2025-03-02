@@ -76,7 +76,7 @@ const Navbar = () => {
                     <li>
                         <Link
                             href="/dashboard/marketplace"
-                            className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
+                            className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap ml-8"
                         >
                             <FontAwesomeIcon icon={faSearch} className="text-sm"/>
                             <span>Marketplace</span>
@@ -99,30 +99,38 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div
-                className={`fixed top-12 right-0 bg-black/90 backdrop-blur-md w-full h-screen md:hidden flex flex-col items-center gap-6 py-16 text-white text-xl transition-all duration-300 z-40 ${
+                className={`fixed top-12 right-0 bg-black/90 backdrop-blur-md w-full max-h-[80vh] overflow-y-auto md:hidden flex flex-col items-center gap-6 py-16 text-white text-xl transition-all duration-300 z-40 ${
                     isMenuOpen ? 'block' : 'hidden'
                 }`}
             >
-                <Link href="#features" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
-                    Features
-                </Link>
-                <Link href="#info" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
-                    Learn More
-                </Link>
-                <Link href="#benefits" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
-                    Benefits
+                {!isAuthenticated && (
+                    <>
+                        <Link href="#dashboard" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
+                            Dashboard
+                        </Link>
+                        <Link href="#features" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
+                            Features
+                        </Link>
+                        <Link href="#info" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
+                            About
+                        </Link>
+                        <Link href="#benefits" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
+                            Benefits
+                        </Link>
+                    </>
+                )}
+
+                <Link
+                    href="/dashboard/marketplace"
+                    className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
+                    onClick={toggleMenu}
+                >
+                    <FontAwesomeIcon icon={faSearch} />
+                    <span>Marketplace</span>
                 </Link>
 
                 {isAuthenticated && (
                     <>
-                        <Link
-                            href="/dashboard/marketplace"
-                            className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
-                            onClick={toggleMenu}
-                        >
-                            <FontAwesomeIcon icon={faSearch} />
-                            <span>Marketplace</span>
-                        </Link>
                         <Link
                             href="/dashboard/offerings"
                             className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
