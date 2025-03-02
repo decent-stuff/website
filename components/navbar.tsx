@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faSearch, faServer, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSearch, faServer, faTrophy, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { AuthButtons } from "@/components/auth-buttons"
 import { useAuth } from "@/lib/auth-context"
@@ -28,6 +28,24 @@ const Navbar = () => {
                         <>
                             <li>
                                 <Link
+                                    href="/dashboard"
+                                    className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
+                                >
+                                    <FontAwesomeIcon icon={faChartLine} className="text-sm"/>
+                                    <span>Dashboard</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/dashboard/marketplace"
+                                    className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
+                                >
+                                    <FontAwesomeIcon icon={faSearch} className="text-sm"/>
+                                    <span>Marketplace</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
                                     href="/dashboard/offerings"
                                     className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
                                 >
@@ -49,7 +67,7 @@ const Navbar = () => {
                     {!isAuthenticated && (
                         <>
                             <li>
-                                    <Link href="#dashboard"
+                                    <Link href="/dashboard"
                                         className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
                                         Dashboard
                                     </Link>
@@ -73,15 +91,6 @@ const Navbar = () => {
                                 </li>
                         </>
                     )}
-                    <li>
-                        <Link
-                            href="/dashboard/marketplace"
-                            className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap ml-8"
-                        >
-                            <FontAwesomeIcon icon={faSearch} className="text-sm"/>
-                            <span>Marketplace</span>
-                        </Link>
-                    </li>
                 </ul>
             </nav>
 
@@ -105,7 +114,7 @@ const Navbar = () => {
             >
                 {!isAuthenticated && (
                     <>
-                        <Link href="#dashboard" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
+                        <Link href="/dashboard" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
                             Dashboard
                         </Link>
                         <Link href="#features" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
@@ -120,17 +129,26 @@ const Navbar = () => {
                     </>
                 )}
 
-                <Link
-                    href="/dashboard/marketplace"
-                    className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
-                    onClick={toggleMenu}
-                >
-                    <FontAwesomeIcon icon={faSearch} />
-                    <span>Marketplace</span>
-                </Link>
+=======
 
                 {isAuthenticated && (
                     <>
+                        <Link
+                            href="/dashboard"
+                            className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
+                            onClick={toggleMenu}
+                        >
+                            <FontAwesomeIcon icon={faChartLine} />
+                            <span>Dashboard</span>
+                        </Link>
+                        <Link
+                            href="/dashboard/marketplace"
+                            className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
+                            onClick={toggleMenu}
+                        >
+                            <FontAwesomeIcon icon={faSearch} />
+                            <span>Marketplace</span>
+                        </Link>
                         <Link
                             href="/dashboard/offerings"
                             className="flex items-center gap-2 hover:text-blue-400 transition duration-300"

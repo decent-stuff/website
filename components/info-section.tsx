@@ -29,10 +29,10 @@ const infoSections = [
     • Blockchain ensures tamper-resistance and transparent verification`
     },
     {
-        title: "How does mining or validation work?",
+        title: "Become a validator!",
         icon: "⛏️",
-        content: `Anyone can be a validator! Just follow these steps:<br/>
-    1. Get some DCT tokens (from ICP Swap or other users)<br/>
+        content: `Validators play a crucial role in ensuring ledger integrity.<br/>Anyone can be a validator! Here’s how you can get started:<br/><br/>
+    1. Acquire DCT tokens (from peers or a DEX such as Kong)<br/>
     2. Run <code>dc np check-in</code> with your identity<br/>
     3. Get rewarded with block rewards<br/><br/>
     <strong>Quick facts:</strong><br/>

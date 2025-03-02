@@ -7,6 +7,7 @@ import HeaderSection from '@/components/ui/header';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth-context';
+import { useRouter } from 'next/navigation';
 
 // Mock data for demonstration purposes
 const mockValidators = [
@@ -70,6 +71,24 @@ export default function ValidatorsPage() {
   const [sortField, setSortField] = useState<SortField>('blocksValidated');
   const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Check authentication status
+  useEffect(() => {
+    // Add a small delay to ensure auth state is properly loaded
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      if (!isAuthenticated) {
+        console.log("User not authenticated, redirecting to home page");
+        router.push('/');
+      } else {
+        console.log("User authenticated, staying on validators page");
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [isAuthenticated, router]);
 
   // Sort validators when sort parameters change
   useEffect(() => {
@@ -82,6 +101,14 @@ export default function ValidatorsPage() {
     });
     setValidators(sortedValidators);
   }, [sortField, sortDirection]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white text-xl">Loading validators...</div>
+      </div>
+    );
+  }
 
   const handleSort = (field: SortField) => {
     if (field === sortField) {

@@ -5,7 +5,7 @@ import { ProtectedRoute } from '@/components/protected-route';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faServer, faTrophy, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faServer, faTrophy, faHome, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 export default function DashboardLayout({
   children,
@@ -44,6 +44,18 @@ export default function DashboardLayout({
         <div className="bg-black/60 backdrop-blur-sm border-b border-white/10">
           <div className="container mx-auto px-4">
             <div className="flex overflow-x-auto">
+              <Link
+                href="/dashboard"
+                className={`flex items-center gap-2 px-4 py-3 border-b-2 whitespace-nowrap ${
+                  isActive('/dashboard') && !isActive('/dashboard/marketplace') && !isActive('/dashboard/offerings') && !isActive('/dashboard/validators')
+                    ? 'border-blue-400 text-blue-400'
+                    : 'border-transparent text-white/70 hover:text-white'
+                } transition-colors`}
+              >
+                <FontAwesomeIcon icon={faChartLine} />
+                <span>Overview</span>
+              </Link>
+
               <Link
                 href="/dashboard/marketplace"
                 className={`flex items-center gap-2 px-4 py-3 border-b-2 whitespace-nowrap ${

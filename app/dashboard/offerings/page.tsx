@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import HeaderSection from '@/components/ui/header';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth-context';
+import { useRouter } from 'next/navigation';
 
 // Mock data for demonstration purposes
 const mockOfferings = [
@@ -35,10 +36,36 @@ const mockOfferings = [
 export default function OfferingsPage() {
   const [offerings, setOfferings] = useState(mockOfferings);
   const { isAuthenticated, principal } = useAuth();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Check authentication status
+  useEffect(() => {
+    // Add a small delay to ensure auth state is properly loaded
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      if (!isAuthenticated) {
+        console.log("User not authenticated, redirecting to home page");
+        router.push('/');
+      } else {
+        console.log("User authenticated, staying on offerings page");
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [isAuthenticated, router]);
 
   const handleDeleteOffering = (id: string) => {
     setOfferings(offerings.filter(offering => offering.id !== id));
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white text-xl">Loading offerings...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

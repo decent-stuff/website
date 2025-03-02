@@ -18,7 +18,7 @@ export function AuthButtons() {
         className="flex items-center gap-4"
       >
         <span className="text-sm text-white/80">
-          <Link href="#dashboard" className="text-sm text-white hover:underline">
+          <Link href="/dashboard" className="text-sm text-white hover:underline">
             Logged in: {principal.toText().slice(0, 5)}
           </Link>
         </span>

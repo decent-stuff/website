@@ -38,6 +38,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [showSeedPhrase, setShowSeedPhrase] = useState(false)
 
   useEffect(() => {
+    // Check if there's a seed phrase in localStorage
+    const storedSeedPhrase = localStorage.getItem('seed_phrase')
+
+    if (storedSeedPhrase) {
+      try {
+        // If there's a seed phrase, use it to authenticate
+        const identity = identityFromSeed(storedSeedPhrase)
+        setIdentity(identity)
+        setPrincipal(identity.getPrincipal())
+        setIsAuthenticated(true)
+        return
+      } catch (error) {
+        console.error('Failed to authenticate with stored seed phrase:', error)
+        localStorage.removeItem('seed_phrase')
+      }
+    }
+
+    // If no seed phrase or it failed, try with AuthClient
     void AuthClient.create().then(async (client) => {
       setAuthClient(client)
       const isAuthenticated = await client.isAuthenticated()
@@ -60,7 +78,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIdentity(identity)
         setPrincipal(identity.getPrincipal())
         setIsAuthenticated(true)
-        window.location.hash = 'dashboard'
+        window.location.href = '/dashboard'
       },
     })
   }
@@ -75,7 +93,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIdentity(identity)
         setPrincipal(identity.getPrincipal())
         setIsAuthenticated(true)
-        window.location.hash = 'dashboard'
+        window.location.href = '/dashboard'
       },
     })
   }
@@ -99,6 +117,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setIdentity(identity)
       setPrincipal(identity.getPrincipal())
       setIsAuthenticated(true)
+      window.location.href = '/dashboard'
     } catch (error) {
       console.error('Failed to login with seed phrase:', error)
       throw error // Re-throw to handle in UI
@@ -106,13 +125,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const logout = async () => {
-    if (!authClient) return
+    if (authClient) {
+      await authClient.logout()
+    }
 
-    await authClient.logout()
     setIsAuthenticated(false)
     setIdentity(null)
     setPrincipal(null)
     localStorage.removeItem('seed_phrase')
+
+    // Redirect to home page after logout
+    window.location.href = '/'
   }
 
   return (

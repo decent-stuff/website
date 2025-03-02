@@ -23,7 +23,7 @@ export function AuthDialog() {
   const handleSeedPhraseSubmit = async (phrase: string) => {
     try {
       await loginWithSeedPhrase(phrase)
-      window.location.hash = 'dashboard'
+      window.location.href = '/dashboard'
     } catch (error) {
       console.error('Login failed:', error)
       setShowSeedPhrase(true)
