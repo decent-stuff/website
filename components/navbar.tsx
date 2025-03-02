@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faBars, faDatabase } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSearch, faServer, faTrophy } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { AuthButtons } from "@/components/auth-buttons"
+import { useAuth } from "@/lib/auth-context"
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { isAuthenticated } = useAuth();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -23,46 +24,62 @@ const Navbar = () => {
             <nav
                 className="hidden text-sm md:flex items-center text-white text-base sm:text-base md:text-base lg:text-lg xl:text-xl font-medium tracking-wide sm:tracking-normal">
                 <ul className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 lg:space-x-6 xl:space-x-8">
-                    <li>
-                        <Link href="#dashboard"
-                              className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
-                            Dashboard
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#features"
-                              className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
-                            Features
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#info" className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
-                            About
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="#benefits"
-                              className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
-                            Benefits
-                        </Link>
-                    </li>
+                    {isAuthenticated && (
+                        <>
+                            <li>
+                                <Link
+                                    href="/dashboard/offerings"
+                                    className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
+                                >
+                                    <FontAwesomeIcon icon={faServer} className="text-sm"/>
+                                    <span>My Offerings</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="/dashboard/validators"
+                                    className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
+                                >
+                                    <FontAwesomeIcon icon={faTrophy} className="text-sm"/>
+                                    <span>Validators</span>
+                                </Link>
+                            </li>
+                        </>
+                    )}
+                    {!isAuthenticated && (
+                        <>
+                            <li>
+                                    <Link href="#dashboard"
+                                        className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                                        Dashboard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="#features"
+                                        className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                                        Features
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="#info" className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                                        About
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="#benefits"
+                                        className="hover:text-blue-400 transition duration-300 whitespace-nowrap">
+                                        Benefits
+                                    </Link>
+                                </li>
+                        </>
+                    )}
                     <li>
                         <Link
-                            href="/ledger"
+                            href="/dashboard/marketplace"
                             className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
                         >
-                            <FontAwesomeIcon icon={faDatabase} className="text-sm"/>
-                            <span>Ledger</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href="https://github.com/decent-stuff/decent-cloud"
-                            className="flex items-center gap-1 sm:gap-2 hover:text-blue-400 transition duration-300 whitespace-nowrap"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <FontAwesomeIcon icon={faGithub}/>
+                            <FontAwesomeIcon icon={faSearch} className="text-sm"/>
+                            <span>Marketplace</span>
                         </Link>
                     </li>
                 </ul>
@@ -95,19 +112,35 @@ const Navbar = () => {
                 <Link href="#benefits" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
                     Benefits
                 </Link>
-                <Link href="/ledger" className="hover:text-blue-400 transition duration-300" onClick={toggleMenu}>
-                    Ledger
-                </Link>
-                <Link
-                    href="https://github.com/decent-stuff/decent-cloud"
-                    className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={toggleMenu}
-                >
-                    <FontAwesomeIcon icon={faGithub} />
-                    GitHub
-                </Link>
+
+                {isAuthenticated && (
+                    <>
+                        <Link
+                            href="/dashboard/marketplace"
+                            className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
+                            onClick={toggleMenu}
+                        >
+                            <FontAwesomeIcon icon={faSearch} />
+                            <span>Marketplace</span>
+                        </Link>
+                        <Link
+                            href="/dashboard/offerings"
+                            className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
+                            onClick={toggleMenu}
+                        >
+                            <FontAwesomeIcon icon={faServer} />
+                            <span>My Offerings</span>
+                        </Link>
+                        <Link
+                            href="/dashboard/validators"
+                            className="flex items-center gap-2 hover:text-blue-400 transition duration-300"
+                            onClick={toggleMenu}
+                        >
+                            <FontAwesomeIcon icon={faTrophy} />
+                            <span>Validators</span>
+                        </Link>
+                    </>
+                )}
                 <AuthButtons />
             </div>
         </header>

@@ -80,7 +80,7 @@ const HeroSection = () => {
                 >
                     <motion.img
                         src="./images/cloud-illustration.png"
-                        alt="Cloud Illustration"
+                        alt=""
                         className="w-full md:min-w-[375px] max-w-md md:max-w-lg lg:max-w-xl"
                         animate={{
                             y: [0, -5, 0],
