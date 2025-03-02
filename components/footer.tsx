@@ -76,7 +76,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <a
-                                    href="https://discord.gg/aAazAbWW"
+                                    href="https://discord.gg/ypHQaX6u3F"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-white/70 hover:text-blue-400 transition duration-300 text-sm flex items-center gap-2"
