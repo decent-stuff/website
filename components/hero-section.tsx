@@ -38,7 +38,7 @@ const HeroSection = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <Typewriter
-                            words={['Peer-to-Peer Cloud', 'No Vendor Lock-in', 'Community-Driven']}
+                            words={['Peer-to-Peer Cloud Marketplace', 'No Vendor Lock-in', 'Community-Driven', 'Liberal Open Source License']}
                             loop={true}
                             cursor
                             cursorStyle="|"
