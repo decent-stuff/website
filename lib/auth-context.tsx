@@ -109,9 +109,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Generate new seed phrase
         seedPhrase = generateNewSeedPhrase()
         // Store the new seed phrase securely
-        localStorage.setItem('seed_phrase', seedPhrase)
-        setShowSeedPhrase(true)
       }
+      localStorage.setItem('seed_phrase', seedPhrase)
+      setShowSeedPhrase(true)
 
       const identity = identityFromSeed(seedPhrase)
       setIdentity(identity)
