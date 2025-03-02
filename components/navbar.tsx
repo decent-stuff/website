@@ -129,8 +129,6 @@ const Navbar = () => {
                     </>
                 )}
 
-=======
-
                 {isAuthenticated && (
                     <>
                         <Link
