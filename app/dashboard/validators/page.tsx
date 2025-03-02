@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrophy, faMedal, faAward, faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import HeaderSection from '@/components/ui/header';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { useAuth } from '@/lib/auth-context';
 import { useRouter } from 'next/navigation';
 

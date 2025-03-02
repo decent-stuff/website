@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/lib/auth-context';
+// import { useAuth } from '@/lib/auth-context';
 import { ProtectedRoute } from '@/components/protected-route';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,7 +13,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
 
   const isActive = (path: string) => {
     return pathname === path;

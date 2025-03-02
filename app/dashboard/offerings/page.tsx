@@ -35,7 +35,7 @@ const mockOfferings = [
 
 export default function OfferingsPage() {
   const [offerings, setOfferings] = useState(mockOfferings);
-  const { isAuthenticated, principal } = useAuth();
+  const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 

@@ -118,7 +118,7 @@ const mockDashboardData: DashboardData = {
 export default function DashboardPage() {
   const { isAuthenticated, principal } = useAuth();
   const router = useRouter();
-  const [dashboardData, setDashboardData] = useState<DashboardData>(mockDashboardData);
+  const [dashboardData] = useState<DashboardData>(mockDashboardData);
   const [isLoading, setIsLoading] = useState(true);
 
   // Check authentication status
