@@ -7,6 +7,9 @@ import { LedgerTable } from '@/components/ledger-table';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import HeaderSection from '@/components/ui/header';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default function LedgerPage() {
   const [entries, setEntries] = useState<LedgerEntry[]>([]);
@@ -128,6 +131,12 @@ export default function LedgerPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className="mb-4 mt-4">
+        <Link href="/" className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors">
+          <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+          <span>Back to Home</span>
+        </Link>
+      </div>
       <HeaderSection
         title="Decent Cloud Ledger Explorer"
         subtitle="Blockchain data retrieval, visualization, and analysis"
