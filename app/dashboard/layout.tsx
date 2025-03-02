@@ -31,8 +31,6 @@ export default function DashboardLayout({
                 <span className="font-medium">Back to Home</span>
               </Link>
 
-              <h1 className="text-xl font-bold text-white">User Dashboard</h1>
-
               <div className="w-24">
                 {/* Spacer for alignment */}
               </div>
