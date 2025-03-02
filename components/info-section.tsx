@@ -10,7 +10,7 @@ const infoSections = [
     those pesky region-wide outages!<br/><br/>
     <strong>Key highlights:</strong><br/>
     • Provider reputations and reviews tracked in tamper-proof ledger<br/>
-    • No gatekeepers or central control<br/>
+    • No gatekeepers or central control, completely permissionless<br/>
     • Self-sustaining with minimal fees<br/>
     • Community-driven evolution`
     },
@@ -43,17 +43,19 @@ const infoSections = [
     • Total supply: ~21M DCT`
     },
     {
-        title: "Show me the money! (Tokenomics)",
+        title: "What makes it safe?",
         icon: "💰",
-        content: `Our Decentralized Cloud Token (DCT) powers the whole ecosystem:<br/><br/>
-    • <strong>Demand:</strong> Users need to acquire DC tokens to pay for renting services or resources<br/>
+        content: `It's actually safer than other marketplaces. Rather than relying on a behind-the-scenes database, all financial transactions are recorded on the blockchain, so there is no possibility of a fraud or a rug pull. Fees are paid in Decentralized Cloud Token (DCT), and conversion is automatic. What drives the value of DCT:<br/><br/>
+    • <strong>Demand:</strong> All fees are paid in DCT. In addition, DCT can be used to pay for renting services or resources<br/>
     • <strong>Supply:</strong> DC tokens can be acquired by renting services or resources, or by mining/validating<br/>
-    • <strong>Governance:</strong> Platform is DAO-controlled for community-driven decisions<br/>`
+    • <strong>Governance:</strong> Platform is permissionless and DAO-controlled, so all decisions are made by the community<br/>
+    • <strong>Open Source:</strong> Anyone can contribute to the project, or fork it and start their own Decent Cloud.
+    `
     },
     {
         title: "Whitepaper: Deep Dive into Decent Cloud",
         icon: "📑",
-        content: `For those who prefer their tech docs well-done, black and white.<br/><br/>
+        content: `For those who prefer their tech docs well-done.<br/><br/>
     Our comprehensive whitepaper details the technical architecture, tokenomics, and governance model that makes Decent Cloud truly decent.<br/><br/>
     <a href="https://decent-stuff.github.io/website/decent-cloud-whitepaper.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 transition-colors">Download the Whitepaper →</a>`
     }
